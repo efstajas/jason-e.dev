@@ -11,4 +11,4 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class extends Vue {}
 </script>
 
-<style scoped src="./Sidebar.sass">
+<style scoped src="./Scaffold.sass">
