@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
+import Project from '../views/Project.vue';
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+  },
+  {
+    path: '/:slug',
+    name: 'project',
+    component: Project,
   },
 ] as RouteConfig[];
 

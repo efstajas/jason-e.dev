@@ -1,11 +1,21 @@
 <template lang="pug">
-  #ProjectListing
+  #ProjectListing(
+    @click="goToProject()"
+  )
     #main
-      p#title {{title}}
-      p#date {{date}}
+      p#name {{name}}
+      p#date {{parseDate(date)}}
       p#role {{role}}
       p#subtitle {{subtitle}}
-      #image
+      #image(
+        :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
+      )
+        #tokens
+          .token(
+            v-for="(t, index) in tokens"
+            :key="index"
+            :style="{ backgroundColor: `rgba(${t[0]},${t[1]},${t[2]},${t[3]})`}"
+          )
 </template>
 
 <script lang="ts">
@@ -18,12 +28,17 @@ export default class extends Vue {
   @Prop({
     type: String,
     required: true,
-  }) readonly title!: string;
+  }) readonly name!: string;
 
   @Prop({
     type: String,
     required: true,
   }) readonly date!: string;
+
+  @Prop({
+    type: String,
+    required: true,
+  }) readonly slug!: string;
 
   @Prop({
     type: String,
@@ -34,7 +49,26 @@ export default class extends Vue {
     type: String,
     required: true,
   }) readonly subtitle!: string;
+
+  @Prop({
+    type: Object,
+    required: true,
+  }) readonly tokens!: any;
+
+  imgBg: Array<number> = this.tokens.background || [0, 0, 0, 1];
+
+  parseDate = (input: string): string => {
+    const date = new Date(Date.parse(input));
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      year: 'numeric',
+    }).format(date);
+  };
+
+  goToProject(): void {
+    this.$router.push(`/${this.slug}`);
+  }
 }
 </script>
 
-<style scoped lang="sass" src="./ProjectListing.sass">
+<style scoped lang="sass" src="./ProjectListing.sass" />

@@ -1,15 +1,23 @@
+@import '@/styles/global/breakpoints.sass'
+
 #main
   display: grid
   grid-template-columns: 1fr 1fr 1fr
   grid-template-rows: auto auto auto
   grid-template-areas: "title date role" "subtitle . ." "image image ."
+  @media(max-width: $tablet)
+    grid-template-columns: auto
+    grid-template-rows: auto auto auto auto
+    grid-template-areas: "title" "date" "subtitle" "image"
   grid-row-gap: 32px
-  #title
+  #name
     grid-area: title
   #date
     grid-area: date
   #role
     grid-area: role
+    @media(max-width: $tablet)
+      display: none
   #subtitle
     grid-area: subtitle
     font-style: italic
@@ -18,3 +26,12 @@
     grid-area: image
     height: 192px
     background-color: grey
+    border: 2px solid black
+    padding: 16px
+    #tokens
+      display: flex
+      .token
+        height: 16px
+        width: 16px
+        border: 2px solid black
+        margin-right: 8px
