@@ -1,0 +1,20 @@
+#main
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr
+  grid-template-rows: auto auto auto
+  grid-template-areas: "title date role" "subtitle . ." "image image ."
+  grid-row-gap: 32px
+  #title
+    grid-area: title
+  #date
+    grid-area: date
+  #role
+    grid-area: role
+  #subtitle
+    grid-area: subtitle
+    font-style: italic
+    font-weight: medium
+  #image
+    grid-area: image
+    height: 192px
+    background-color: grey
