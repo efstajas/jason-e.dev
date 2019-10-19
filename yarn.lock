@@ -4492,11 +4492,6 @@ fd-slicer@~1.0.1:
   dependencies:
     pend "~1.2.0"
 
-fetchql@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/fetchql/-/fetchql-3.0.0.tgz#695adc6e2786a9598587da2a070b22538d6aa34c"
-  integrity sha512-KbZfzLtdgGLVjCIbw2+dEg8FoLAH42/5CWY8J5R3n6LrBULXiVgM5QxWtNKD+f6AijLdkwHtSxkgHKECISx8yQ==
-
 figgy-pudding@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
