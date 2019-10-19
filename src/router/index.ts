@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
-import Project from '../views/Project.vue';
+import Home from '@/views/Home.vue';
+import Project from '@/views/Project';
 
 Vue.use(VueRouter);
 
