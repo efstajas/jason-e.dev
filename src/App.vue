@@ -1,7 +1,9 @@
 <template lang="pug">
   div#app
     #mainContainer
-      Sidebar#sidebar
+      Sidebar(
+        :goHomeEnabled="!isHomepage"
+      )#sidebar
       router-view#content
 </template>
 
@@ -15,7 +17,12 @@ import Sidebar from '@/components/Sidebar';
     Sidebar,
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  get isHomepage(): boolean {
+    console.log(this.$route);
+    return this.$route.name === 'home';
+  }
+}
 </script>
 
 <style lang="sass">

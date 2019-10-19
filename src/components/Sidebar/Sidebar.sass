@@ -1,0 +1,29 @@
+#titleSection
+  position: relative
+
+  // for getting a good tap target size
+  height: 48px
+  padding-left: 16px
+  margin-left: -16px
+  margin-top: -16px
+  
+  cursor: pointer
+  display: flex
+  align-items: center
+  #content
+    .goBack
+      margin-right: 8px
+    .title
+      position: absolute
+      top: 13px
+      transform: translateX(0px)
+      transition: transform .3s
+      &.nudged
+        transform: translateX(24px)
+
+.arrow-enter-active, .arrow-leave-active
+  transition: transform .3s, opacity .3s
+
+.arrow-leave-to, .arrow-enter
+  transform: translateX(-24px)
+  opacity: 0
