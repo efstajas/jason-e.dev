@@ -13,7 +13,7 @@ query {
     role
     subtitle
     tokens
-    slug
+    content
   }
 }`;
 
