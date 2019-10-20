@@ -35,4 +35,9 @@ export default class MyModule extends VuexModule {
   setTheme(theme: Theme): void {
     this.context.commit('writeTheme', theme);
   }
+
+  @Action
+  restoreDefaultTheme(): void {
+    this.context.commit('writeTheme', baseTheme);
+  }
 }

@@ -42,6 +42,8 @@ body
       min-height: 100vh
       padding: 24px 16px
       box-sizing: border-box
+      background-color: var(--background)
+      transition: background-color .3s
       @media(max-width: $tablet)
         grid-template-columns: auto
         grid-template-rows: minmax(min-content, max-content) auto
@@ -53,7 +55,8 @@ body
       @media(min-width: $tablet)
         #sidebar
           grid-area: sidebar
-          border-right: 2px solid black
+          border-right: 2px solid var(--foreground)
+          transition: border .3s
         #content
           grid-area: content
 </style>
