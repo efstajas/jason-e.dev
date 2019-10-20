@@ -1,6 +1,6 @@
 <template lang="pug">
   div#app
-    #mainContainer
+    Themer#mainContainer
       Sidebar(
         :goHomeEnabled="!isHomepage"
       )#sidebar
@@ -10,16 +10,17 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Sidebar from '@/components/Sidebar';
+import Themer from '@/components/Themer';
 
 @Component({
   name: 'App',
   components: {
     Sidebar,
+    Themer,
   },
 })
 export default class extends Vue {
   get isHomepage(): boolean {
-    console.log(this.$route);
     return this.$route.name === 'home';
   }
 }
