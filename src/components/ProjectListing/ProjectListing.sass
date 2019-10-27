@@ -5,13 +5,34 @@
   grid-template-columns: 1fr 1fr 1fr
   grid-template-rows: auto auto auto
   grid-template-areas: "title date role" "subtitle . ." "image image ."
+  cursor: pointer
+  position: relative
   @media(max-width: $tablet)
     grid-template-columns: auto
     grid-template-rows: auto auto auto auto
     grid-template-areas: "title" "date" "subtitle" "image"
   grid-row-gap: 32px
+  #line
+    width: 0
+    height: 2px
+    background-color: black
+    position: absolute
+    top: 10px
+    z-index: 0
+    transition: width .3s
+    &.shown
+      width: 80%
+  #name, #date, #role
+    z-index: 10
+    > span
+      padding: 0 16px
+      margin: 0 -16px
+      background-color: white
   #name
     grid-area: title
+    > span
+      padding-left: 0
+      margin-left: 0
   #date
     grid-area: date
   #role

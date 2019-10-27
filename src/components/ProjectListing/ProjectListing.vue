@@ -1,11 +1,19 @@
 <template lang="pug">
   #ProjectListing(
     @click="goToProject()"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
   )
     #main
-      p#name {{name}}
-      p#date {{parseDate(date)}}
-      p#role {{role}}
+      div#line(
+        :class="{ shown: hover }"
+      )
+      p#name
+        span {{name}}
+      p#date
+        span {{parseDate(date)}}
+      p#role
+        span {{role}}
       p#subtitle {{subtitle}}
       #image(
         :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
@@ -25,6 +33,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   name: 'ProjectListing',
 })
 export default class extends Vue {
+  hover: boolean = false;
+
   @Prop({
     type: String,
     required: true,
