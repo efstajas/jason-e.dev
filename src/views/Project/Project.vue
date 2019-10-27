@@ -9,7 +9,7 @@ import VueMarkdown from 'vue-markdown';
 import { getModule } from 'vuex-module-decorators';
 
 import themeStore from '@/store/modules/theme/theme';
-import project from '@/graphql/queries/project';
+import projectsStore from '@/store/modules/projects/projects';
 
 @Component({
   name: 'Project',
@@ -18,14 +18,40 @@ import project from '@/graphql/queries/project';
   },
 })
 export default class extends Vue {
-  themeModule = getModule(themeStore);
+  themeModule = getModule(themeStore, this.$store);
+
+  projectsModule = getModule(projectsStore, this.$store);
 
   project: null | any = null;
 
   async mounted() {
-    const [queryResult] = (await project(this.$route.params.slug)).data.projects;
-    this.project = queryResult;
+    const { slug } = this.$route.params;
 
+    if (this.projectsModule.getProject(slug).content) {
+      this.applyProjectFromStore(slug);
+      return;
+    }
+
+    await this.projectsModule.fetchProjects({
+      query: `
+        slug: "${slug}"
+      `,
+      fields: `
+        slug
+        name
+        date
+        role
+        subtitle
+        tokens
+        content
+      `,
+    });
+
+    this.applyProjectFromStore(slug);
+  }
+
+  applyProjectFromStore(slug: string) {
+    this.project = this.projectsModule.getProject(slug);
     this.themeModule.setTheme(this.project.tokens);
   }
 

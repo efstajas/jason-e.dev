@@ -19,7 +19,7 @@ const baseTheme = {
 @Module({
   name: 'theme',
 })
-export default class MyModule extends VuexModule {
+export default class extends VuexModule {
   theme: Theme = baseTheme;
 
   get currentTheme(): Theme {

@@ -15,8 +15,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
 import projects from '@/graphql/queries/projects';
 import ProjectListing from '@/components/ProjectListing';
+
+import projectsStore from '@/store/modules/projects/projects';
 
 @Component({
   name: 'Home',
@@ -25,10 +28,24 @@ import ProjectListing from '@/components/ProjectListing';
   },
 })
 export default class extends Vue {
+  projectsModule = getModule(projectsStore, this.$store);
+
   projects: null | any = null;
 
   async mounted() {
-    this.projects = (await projects).data.projects;
+    await this.projectsModule.fetchProjects({
+      query: '',
+      fields: `
+        slug
+        name
+        date
+        role
+        subtitle
+        tokens
+      `,
+    });
+
+    this.projects = this.projectsModule.getAllProjects;
   }
 }
 </script>

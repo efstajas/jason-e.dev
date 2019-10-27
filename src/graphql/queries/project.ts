@@ -1,20 +1,11 @@
 import client from '@/graphql/client';
 
 
-const query = (slug: string) => `
+const queryString = (where: string, fields: string) => `
 query {
   projects(
-    where: {
-      slug: "${slug}"
-    }
-  ) {
-    name
-    date
-    role
-    subtitle
-    tokens
-    content
-  }
+    where: {${where}}
+  ) {${fields}}
 }`;
 
-export default (slug: string) => client(query(slug));
+export default (query: string, fields: string) => client(queryString(query, fields));
