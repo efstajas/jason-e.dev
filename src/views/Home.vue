@@ -61,8 +61,6 @@ export default class extends Vue {
     const rightNow = new Date();
     const diff = Math.abs(rightNow.getTime() - lastUpdated.getTime()) / 1000;
 
-    console.log(diff);
-
     return diff > 1000;
   }
 }

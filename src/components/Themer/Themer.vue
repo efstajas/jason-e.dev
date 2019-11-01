@@ -6,15 +6,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 
 import themeStore from '@/store/modules/theme/theme';
 import { Theme, Token } from '../../store/modules/theme/theme.types';
 
 /*
-This component applies the theme currently applied in the vuex "Theme"
-module to everything wrapped in it.
+This component applies a theme to everything wrapped in it.
 It converts tokens to css variables and passes them down the DOM.
 */
 
@@ -45,14 +44,13 @@ const makeVariablesFromTheme = (
 export default class extends Vue {
   themeModule = getModule(themeStore, this.$store);
 
-  get currentTheme(): Theme {
-    return this.themeModule.currentTheme;
-  }
+  @Prop({
+    required: true,
+    type: Object,
+  }) readonly theme!: Theme;
 
   get currentThemeAsString(): string {
-    return makeVariablesFromTheme(this.currentTheme);
+    return makeVariablesFromTheme(this.theme);
   }
 }
 </script>
-
-<style scoped lang="sass" src="./Themer.sass">

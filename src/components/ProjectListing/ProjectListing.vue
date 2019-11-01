@@ -15,8 +15,9 @@
       p#role
         span {{role}}
       p#subtitle {{subtitle}}
-      #image(
+      Themer#image(
         :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
+        :theme="tokens"
       )
         #tokens
           .token(
@@ -29,8 +30,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import Themer from '@/components/Themer';
+
 @Component({
   name: 'ProjectListing',
+  components: {
+    Themer,
+  },
 })
 export default class extends Vue {
   hover: boolean = false;
