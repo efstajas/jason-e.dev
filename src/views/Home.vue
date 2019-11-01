@@ -5,12 +5,13 @@
       br
       p I'm currently working at Grover.
       p#haveALook Have a look at some selected projects:
-    #projects(v-if="projects")
-      ProjectListing(
-        v-for="(project, index) in projects"
-        :key="index"
-        v-bind="project"
-      )
+    transition(name='fade' mode="out-in")
+      #projects(v-if="projects")
+          ProjectListing(
+            v-for="(project, index) in projects"
+            :key="index"
+            v-bind="project"
+          )
 </template>
 
 <script lang="ts">
@@ -33,6 +34,11 @@ export default class extends Vue {
   projects: null | any = null;
 
   async mounted() {
+    if (!this.shouldUpdateProjects()) {
+      this.projects = this.projectsModule.getAllProjects;
+      return;
+    }
+
     await this.projectsModule.fetchProjects({
       query: '',
       fields: `
@@ -47,6 +53,18 @@ export default class extends Vue {
 
     this.projects = this.projectsModule.getAllProjects;
   }
+
+  shouldUpdateProjects(): boolean {
+    const lastUpdated = this.projectsModule.getLastFetchedAllProjects;
+    if (!lastUpdated) return true;
+
+    const rightNow = new Date();
+    const diff = Math.abs(rightNow.getTime() - lastUpdated.getTime()) / 1000;
+
+    console.log(diff);
+
+    return diff > 1000;
+  }
 }
 </script>
 
@@ -58,4 +76,8 @@ export default class extends Vue {
 #projects
   > *
     margin-bottom: 128px
+.fade-enter-active, .fade-leave-active
+  transition: opacity .3s
+.fade-enter, .fade-leave-to
+  opacity: 0
 </style>

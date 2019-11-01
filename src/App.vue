@@ -4,7 +4,8 @@
       Sidebar(
         :goHomeEnabled="!isHomepage"
       )#sidebar
-      router-view#content
+      transition(name='fade' mode="out-in")
+        router-view#content
 </template>
 
 <script lang="ts">
@@ -20,6 +21,11 @@ import Themer from '@/components/Themer';
   },
 })
 export default class extends Vue {
+  // eslint-disable-next-line class-methods-use-this
+  mounted() {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }
@@ -59,4 +65,8 @@ body
           transition: border .3s
         #content
           grid-area: content
+.fade-enter-active, .fade-leave-active
+  transition: opacity .3s
+.fade-enter, .fade-leave-to
+  opacity: 0
 </style>

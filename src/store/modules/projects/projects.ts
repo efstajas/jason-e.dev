@@ -16,12 +16,18 @@ export default class extends VuexModule {
     [slug: string]: Project,
   } = {};
 
+  lastFetchedAllProjects: Date | null = null;
+
   get getProject() {
     return (slug: string) => this.fetchedProjects[slug];
   }
 
   get getAllProjects() {
     return this.fetchedProjects;
+  }
+
+  get getLastFetchedAllProjects() {
+    return this.lastFetchedAllProjects;
   }
 
   @Mutation
@@ -43,6 +49,11 @@ export default class extends VuexModule {
     this.fetchedProjects = projects;
   }
 
+  @Mutation
+  setLastFetchedAllProjects(date: Date): void {
+    this.lastFetchedAllProjects = date;
+  }
+
   @Action
   async fetchProjects(options: {
     query: string,
@@ -50,6 +61,7 @@ export default class extends VuexModule {
   }): Promise<void> {
     const projects = await fetchProjects(options.query, options.fields);
     this.context.commit('appendProjects', projects.data.projects);
+    if (options.query === '') this.context.commit('setLastFetchedAllProjects', new Date());
   }
 
   @Action
