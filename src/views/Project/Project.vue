@@ -1,5 +1,6 @@
 <template lang="pug">
   div#Project(v-if="project")
+    ProjectListing(v-bind="project" :disableHover="true")#intro
     VueMarkdown {{project.content}}
 </template>
 
@@ -8,6 +9,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import VueMarkdown from 'vue-markdown';
 import { getModule } from 'vuex-module-decorators';
 
+import ProjectListing from '@/components/ProjectListing';
+
 import themeStore from '@/store/modules/theme/theme';
 import projectsStore from '@/store/modules/projects/projects';
 
@@ -15,6 +18,7 @@ import projectsStore from '@/store/modules/projects/projects';
   name: 'Project',
   components: {
     VueMarkdown,
+    ProjectListing,
   },
 })
 export default class extends Vue {
@@ -27,7 +31,9 @@ export default class extends Vue {
   async mounted() {
     const { slug } = this.$route.params;
 
-    if (this.projectsModule.getProject(slug).content) {
+    const project = this.projectsModule.getProject(slug);
+
+    if (project && project.content) {
       this.applyProjectFromStore(slug);
       return;
     }

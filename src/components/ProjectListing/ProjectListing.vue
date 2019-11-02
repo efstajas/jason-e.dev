@@ -4,9 +4,9 @@
     @mouseover="hover = true"
     @mouseleave="hover = false"
   )
-    #main
+    #main(:class="{ hoverEnabled: !disableHover }")
       div#line(
-        :class="{ shown: hover }"
+        :class="{ shown: isHovering }"
       )
       p#name
         span {{name}}
@@ -31,6 +31,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import Themer from '@/components/Themer';
+import { Theme } from '../../store/modules/theme/theme.types';
 
 @Component({
   name: 'ProjectListing',
@@ -40,6 +41,8 @@ import Themer from '@/components/Themer';
 })
 export default class extends Vue {
   hover: boolean = false;
+
+  imgBg: Array<number> = this.tokens.background || [0, 0, 0, 1];
 
   @Prop({
     type: String,
@@ -69,9 +72,19 @@ export default class extends Vue {
   @Prop({
     type: Object,
     required: true,
-  }) readonly tokens!: any;
+  }) readonly tokens!: Theme;
 
-  imgBg: Array<number> = this.tokens.background || [0, 0, 0, 1];
+  @Prop({
+    type: Boolean,
+    required: false,
+    default: false,
+  }) readonly disableHover!: boolean;
+
+  get isHovering(): boolean {
+    return this.disableHover
+      ? false
+      : this.hover;
+  }
 
   parseDate = (input: string): string => {
     const date = new Date(Date.parse(input));
@@ -82,7 +95,7 @@ export default class extends Vue {
   };
 
   goToProject(): void {
-    this.$router.push(`/${this.slug}`);
+    if (!this.disableHover) this.$router.push(`/${this.slug}`);
   }
 }
 </script>

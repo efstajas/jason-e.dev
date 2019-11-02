@@ -5,8 +5,9 @@
   grid-template-columns: 1fr 1fr 1fr
   grid-template-rows: auto auto auto
   grid-template-areas: "title date role" "subtitle . ." "image image ."
-  cursor: pointer
   position: relative
+  &.hoverEnabled
+    cursor: pointer
   @media(max-width: $tablet)
     grid-template-columns: auto
     grid-template-rows: auto auto auto auto
@@ -19,7 +20,7 @@
     position: absolute
     top: 10px
     z-index: 0
-    transition: width .3s
+    transition: width .3s, background-color .3s
     &.shown
       width: 80%
   #name, #date, #role
@@ -27,6 +28,7 @@
     > span
       padding: 0 16px
       margin: 0 -16px
+      transition: background-color .3s
       background-color: var(--background)
   #name
     grid-area: title

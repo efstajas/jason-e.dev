@@ -52,6 +52,7 @@ body
         grid-template-areas: "menu" "content"
         #sidebar
           grid-area: menu
+          margin-bottom: 32px
         #content
           grid-area: content
       @media(min-width: $tablet)
