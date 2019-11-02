@@ -1,2 +1,15 @@
+@import '@/styles/global/breakpoints.sass'
+  
 #intro
   margin-bottom: 128px
+#text::v-deep
+  @media(min-width: $tablet)
+    max-width: percentage(2/3)
+  img
+    margin-top: 64px
+    border: 2px solid var(--foreground)
+    transition: border .3s
+    padding: 16px
+    box-sizing: border-box
+    width: 100%
+    margin-bottom: 64px

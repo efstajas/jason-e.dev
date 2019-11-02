@@ -1,7 +1,7 @@
 <template lang="pug">
   div#Project(v-if="project")
     ProjectListing(v-bind="project" :disableHover="true")#intro
-    VueMarkdown {{project.content}}
+    VueMarkdown#text {{project.content}}
 </template>
 
 <script lang="ts">
