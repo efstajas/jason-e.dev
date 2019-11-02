@@ -1,31 +1,27 @@
 <template lang="pug">
   div#app
-    Themer#mainContainer
-      Sidebar(
-        :goHomeEnabled="!isHomepage"
-      )#sidebar
-      transition(name='fade' mode="out-in")
-        router-view#content
+    StoreThemer
+      #mainContainer
+        Sidebar(
+          :goHomeEnabled="!isHomepage"
+        )#sidebar
+        transition(name='fade' mode="out-in")
+          router-view#content
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Sidebar from '@/components/Sidebar';
-import Themer from '@/components/Themer';
+import StoreThemer from '@/components/StoreThemer';
 
 @Component({
   name: 'App',
   components: {
     Sidebar,
-    Themer,
+    StoreThemer,
   },
 })
 export default class extends Vue {
-  // eslint-disable-next-line class-methods-use-this
-  mounted() {
-    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }

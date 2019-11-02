@@ -16,19 +16,38 @@ const baseTheme = {
   highlight: [255, 0, 0, 1],
 } as Theme;
 
+const baseThemeDark = {
+  background: [0, 0, 0, 1],
+  level1: [255, 255, 255, 0.2],
+  level2: [255, 255, 255, 0.5],
+  level3: [255, 255, 255, 0.7],
+  foreground: [255, 255, 255, 1],
+  highlight: [255, 0, 0, 1],
+} as Theme;
+
 @Module({
   name: 'theme',
 })
 export default class extends VuexModule {
-  theme: Theme = baseTheme;
+  isDarkMode = false;
+
+  theme: Theme | null = null;
 
   get currentTheme(): Theme {
-    return this.theme;
+    if (this.theme) return this.theme;
+    return this.isDarkMode
+      ? baseThemeDark
+      : baseTheme;
   }
 
   @Mutation
   writeTheme(theme: Theme): void {
     this.theme = theme;
+  }
+
+  @Mutation
+  writeIsDarkMode(darkMode: boolean): void {
+    this.isDarkMode = darkMode;
   }
 
   @Action
@@ -37,7 +56,14 @@ export default class extends VuexModule {
   }
 
   @Action
+  setIsDarkMode(darkMode: boolean): void {
+    this.context.commit('writeIsDarkMode', darkMode);
+  }
+
+  @Action
   restoreDefaultTheme(): void {
-    this.context.commit('writeTheme', baseTheme);
+    this.context.commit('writeTheme', this.isDarkMode
+      ? baseThemeDark
+      : baseTheme);
   }
 }
