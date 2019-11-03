@@ -36,7 +36,7 @@ export default class extends Vue {
 
   async mounted() {
     if (!this.shouldUpdateProjects()) {
-      this.projects = this.projectsModule.getAllProjects;
+      this.applyProjectsFromStore();
       return;
     }
 
@@ -53,7 +53,7 @@ export default class extends Vue {
       `,
     });
 
-    this.projects = this.projectsModule.getAllProjects;
+    this.applyProjectsFromStore();
   }
 
   shouldUpdateProjects(): boolean {
@@ -64,6 +64,11 @@ export default class extends Vue {
     const diff = Math.abs(rightNow.getTime() - lastUpdated.getTime()) / 1000;
 
     return diff > 1000;
+  }
+
+  applyProjectsFromStore(): void {
+    this.projects = this.projectsModule.getAllProjects;
+    this.$root.$emit('loadedProjects');
   }
 }
 </script>

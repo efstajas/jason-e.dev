@@ -5,7 +5,11 @@
         Sidebar(
           :goHomeEnabled="!isHomepage"
         )#sidebar
-        transition(name='fade' mode="out-in")
+        transition(
+          name='fade'
+          mode="out-in"
+          @after-leave="$root.$emit('triggerScroll')"
+        )
           router-view#content
 </template>
 
@@ -24,6 +28,10 @@ import StoreThemer from '@/components/StoreThemer';
 export default class extends Vue {
   get isHomepage(): boolean {
     return this.$route.name === 'home';
+  }
+
+  transitionDone = () => {
+    console.log('wup');
   }
 }
 </script>

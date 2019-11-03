@@ -22,6 +22,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior: (to, from, savedPosition) => new Promise((resolve, reject) => {
+    router.app.$root.$once('triggerScroll', () => {
+      if (savedPosition && to.name === 'home') {
+        console.log(savedPosition);
+        router.app.$root.$once('loadedProjects', () => {
+          router.app.$nextTick(() => resolve(savedPosition));
+        });
+      }
+      resolve({ x: 0, y: 0 });
+    });
+  }),
 });
 
 export default router;
