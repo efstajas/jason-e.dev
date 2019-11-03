@@ -55,7 +55,10 @@ export default class extends VuexModule {
     light: Theme,
     dark: Theme,
   }): void {
-    this.context.commit('writeTheme', this.isDarkMode ? theme.dark : theme.light);
+    this.context.commit(
+      'writeTheme',
+      this.isDarkMode ? theme.dark : theme.light
+    );
   }
 
   @Action
