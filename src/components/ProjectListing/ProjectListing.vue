@@ -17,11 +17,11 @@
       p#subtitle {{subtitle}}
       Themer#image(
         :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
-        :theme="tokens"
+        :theme="desiredTokens"
       )
         #tokens
           .token(
-            v-for="(t, index) in tokens"
+            v-for="(t, index) in desiredTokens"
             :key="index"
             :style="{ backgroundColor: `rgba(${t[0]},${t[1]},${t[2]},${t[3]})`}"
           )
@@ -29,6 +29,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
+
+import themeStore from '@/store/modules/theme/theme';
 
 import Themer from '@/components/Themer';
 import { Theme } from '../../store/modules/theme/theme.types';
@@ -42,7 +45,7 @@ import { Theme } from '../../store/modules/theme/theme.types';
 export default class extends Vue {
   hover: boolean = false;
 
-  imgBg: Array<number> = this.tokens.background || [0, 0, 0, 1];
+  themeModule = getModule(themeStore, this.$store);
 
   @Prop({
     type: String,
@@ -75,15 +78,28 @@ export default class extends Vue {
   }) readonly tokens!: Theme;
 
   @Prop({
+    type: Object,
+    required: true,
+  }) readonly tokensDark!: Theme;
+
+  @Prop({
     type: Boolean,
     required: false,
     default: false,
   }) readonly disableHover!: boolean;
 
+  imgBg: Array<number> = this.desiredTokens.background || [0, 0, 0, 1];
+
   get isHovering(): boolean {
     return this.disableHover
       ? false
       : this.hover;
+  }
+
+  get desiredTokens(): Theme {
+    return this.themeModule.isDarkMode
+      ? this.tokensDark
+      : this.tokens;
   }
 
   parseDate = (input: string): string => {

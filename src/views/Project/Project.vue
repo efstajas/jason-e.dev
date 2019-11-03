@@ -1,6 +1,6 @@
 <template lang="pug">
   div#Project(v-if="project")
-    ProjectListing(v-bind="project" :disableHover="true")#intro
+    ProjectListing(v-bind="project" :tokensDark="project.tokens_dark" :disableHover="true")#intro
     VueMarkdown#text {{project.content}}
 </template>
 
@@ -50,6 +50,7 @@ export default class extends Vue {
         subtitle
         tokens
         content
+        tokens_dark
       `,
     });
 
@@ -58,7 +59,10 @@ export default class extends Vue {
 
   applyProjectFromStore(slug: string) {
     this.project = this.projectsModule.getProject(slug);
-    this.themeModule.setTheme(this.project.tokens);
+    this.themeModule.setTheme({
+      light: this.project.tokens,
+      dark: this.project.tokens_dark,
+    });
   }
 
   beforeDestroy() {

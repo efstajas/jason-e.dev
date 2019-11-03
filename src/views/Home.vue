@@ -11,6 +11,7 @@
             v-for="(project, index) in projects"
             :key="index"
             v-bind="project"
+            :tokensDark="project.tokens_dark"
           )
 </template>
 
@@ -48,6 +49,7 @@ export default class extends Vue {
         role
         subtitle
         tokens
+        tokens_dark
       `,
     });
 
