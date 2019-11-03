@@ -1,12 +1,13 @@
 <template lang="pug">
-  div#Project(v-if="project")
+  div#Project(v-if="project && projectContent")
     ProjectListing(v-bind="project" :tokensDark="project.tokens_dark" :disableHover="true")#intro
-    VueMarkdown#text {{project.content}}
+    VRuntimeTemplate(:template="projectContent")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import VueMarkdown from 'vue-markdown';
+import MarkdownIt from 'markdown-it';
+import VRuntimeTemplate from 'v-runtime-template';
 import { getModule } from 'vuex-module-decorators';
 
 import ProjectListing from '@/components/ProjectListing';
@@ -14,11 +15,15 @@ import ProjectListing from '@/components/ProjectListing';
 import themeStore from '@/store/modules/theme/theme';
 import projectsStore from '@/store/modules/projects/projects';
 
+const md = new MarkdownIt({
+  html: true,
+});
+
 @Component({
   name: 'Project',
   components: {
-    VueMarkdown,
     ProjectListing,
+    VRuntimeTemplate,
   },
 })
 export default class extends Vue {
@@ -63,6 +68,12 @@ export default class extends Vue {
       light: this.project.tokens,
       dark: this.project.tokens_dark,
     });
+  }
+
+  get projectContent(): string | null {
+    return this.project
+      ? `<div>${md.renderInline(this.project.content)}</div>`
+      : null;
   }
 
   beforeDestroy() {
