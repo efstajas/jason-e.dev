@@ -1,7 +1,9 @@
 <template lang="pug">
   div#Project(v-if="project && projectContent")
     ProjectListing(v-bind="project" :tokensDark="project.tokens_dark" :disableHover="true")#intro
-    VRuntimeTemplate(:template="projectContent")
+    .credit {{ project.credit }}
+    #text
+      VRuntimeTemplate(:template="projectContent")
 </template>
 
 <script lang="ts">
@@ -56,6 +58,7 @@ export default class extends Vue {
         tokens
         content
         tokens_dark
+        credit
       `,
     });
 
