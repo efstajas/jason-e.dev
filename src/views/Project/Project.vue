@@ -19,6 +19,7 @@ import projectsStore from '@/store/modules/projects/projects';
 
 const md = new MarkdownIt({
   html: true,
+  typographer: true,
 });
 
 @Component({
@@ -75,7 +76,7 @@ export default class extends Vue {
 
   get projectContent(): string | null {
     return this.project
-      ? `<div>${md.renderInline(this.project.content)}</div>`
+      ? `<div>${md.render(this.project.content)}</div>`
       : null;
   }
 
