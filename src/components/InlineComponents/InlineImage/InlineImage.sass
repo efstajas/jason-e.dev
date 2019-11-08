@@ -1,0 +1,33 @@
+#image
+  margin-top: 64px
+  position: relative
+  border: 2px solid var(--foreground)
+  overflow: hidden
+  transition: height .5s
+  #loading
+    height: 256px
+    width: 100%
+    background-color: var(--level1)
+    animation: pulse 2s infinite
+  img
+    position: absolute
+    width: 100%
+    box-sizing: border-box
+    opacity: 1
+    transition: opacity .5s
+    &.hidden
+      opacity: 0
+    &.withPadding
+      padding: 16px
+#subtitle
+  margin-top: 32px
+  p
+    font-style: italic
+
+@keyframes pulse
+  0%
+    opacity: 0
+  50%
+    opacity: .5
+  100%
+    opacity: 0
