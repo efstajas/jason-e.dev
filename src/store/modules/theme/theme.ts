@@ -5,7 +5,7 @@ import {
   Action,
 } from 'vuex-module-decorators';
 
-import { Theme } from './theme.types';
+import { Theme, ThemePair } from './theme.types';
 
 const baseTheme = {
   background: [255, 255, 255, 1],
@@ -25,23 +25,32 @@ const baseThemeDark = {
   highlight: [255, 0, 0, 1],
 } as Theme;
 
+const defaultTheme = {
+  light: baseTheme,
+  dark: baseThemeDark,
+} as ThemePair;
+
 @Module({
   name: 'theme',
 })
 export default class extends VuexModule {
   isDarkMode = false;
 
-  theme: Theme | null = null;
+  theme: ThemePair | null = null;
 
   get currentTheme(): Theme {
-    if (this.theme) return this.theme;
+    if (this.theme) {
+      return this.isDarkMode
+        ? this.theme.dark
+        : this.theme.light;
+    }
     return this.isDarkMode
-      ? baseThemeDark
-      : baseTheme;
+      ? defaultTheme.dark
+      : defaultTheme.light;
   }
 
   @Mutation
-  writeTheme(theme: Theme): void {
+  writeTheme(theme: ThemePair): void {
     this.theme = theme;
   }
 
@@ -51,13 +60,10 @@ export default class extends VuexModule {
   }
 
   @Action
-  setTheme(theme: {
-    light: Theme,
-    dark: Theme,
-  }): void {
+  setTheme(theme: ThemePair): void {
     this.context.commit(
       'writeTheme',
-      this.isDarkMode ? theme.dark : theme.light,
+      theme,
     );
   }
 
@@ -68,8 +74,6 @@ export default class extends VuexModule {
 
   @Action
   restoreDefaultTheme(): void {
-    this.context.commit('writeTheme', this.isDarkMode
-      ? baseThemeDark
-      : baseTheme);
+    this.context.commit('writeTheme', defaultTheme);
   }
 }

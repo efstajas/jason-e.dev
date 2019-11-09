@@ -8,3 +8,8 @@ export interface Theme {
     foreground: Token,
     highlight: Token,
 };
+
+export interface ThemePair {
+    dark: Theme,
+    light: Theme,
+};

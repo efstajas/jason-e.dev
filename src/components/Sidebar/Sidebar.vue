@@ -48,7 +48,6 @@ export default class extends Vue {
   }
 
   handleTitleClick():void {
-    console.log('ayy');
     if (this.goHomeEnabled) this.$router.push('/');
   }
 }

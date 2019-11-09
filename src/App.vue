@@ -29,10 +29,6 @@ export default class extends Vue {
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }
-
-  transitionDone = () => {
-    console.log('wup');
-  }
 }
 </script>
 

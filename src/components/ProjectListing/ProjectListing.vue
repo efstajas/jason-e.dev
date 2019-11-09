@@ -34,7 +34,7 @@ import { getModule } from 'vuex-module-decorators';
 import themeStore from '@/store/modules/theme/theme';
 
 import Themer from '@/components/Themer';
-import { Theme } from '../../store/modules/theme/theme.types';
+import { Theme, Token } from '../../store/modules/theme/theme.types';
 
 @Component({
   name: 'ProjectListing',
@@ -88,8 +88,6 @@ export default class extends Vue {
     default: false,
   }) readonly disableHover!: boolean;
 
-  imgBg: Array<number> = this.desiredTokens.background || [0, 0, 0, 1];
-
   get isHovering(): boolean {
     return this.disableHover
       ? false
@@ -100,6 +98,10 @@ export default class extends Vue {
     return this.themeModule.isDarkMode
       ? this.tokensDark
       : this.tokens;
+  }
+
+  get imgBg(): Token {
+    return this.desiredTokens.background;
   }
 
   parseDate = (input: string): string => {
