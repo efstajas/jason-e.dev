@@ -34,5 +34,14 @@
 #chapters
   margin-top: 32px
   position: fixed
+  display: flex
+  flex-direction: column
+  a
+    margin-bottom: 8px
+    text-decoration: none
+    opacity: .6
+    transition: opacity .3s
+    &.is-active, &:hover
+      opacity: 1
   @media(max-width: $tablet)
     display: none

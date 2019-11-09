@@ -8,9 +8,13 @@
           :class="{ shown: goHomeEnabled }"
           ) <-
         .title(:class="{ nudged: goHomeEnabled }") Jason Efstathiou
-    scrollactive#chapters(:style="{ width: width }")
+    scrollactive#chapters(
+      :style="{ width: width }"
+      @itemchanged="activatedChapter = true"
+    )
       a(
         class="scrollactive-item"
+        :class="{ 'is-active': !activatedChapter }"
         v-for="chapter, index in currentChapters"
         :key="index"
         :href="`#${chapter.hash}`"
@@ -32,6 +36,8 @@ export default class extends Vue {
   chaptersModule = getModule(subChapters, this.$store);
 
   width: string | null = null;
+
+  activatedChapter: boolean = false;
 
   @Prop({
     required: true,
