@@ -23,9 +23,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   scrollBehavior: (to, from, savedPosition) => new Promise((resolve, reject) => {
+    if ('scrollRestoration' in window.history) { window.history.scrollRestoration = 'manual'; }
     router.app.$root.$once('triggerScroll', () => {
       if (savedPosition && to.name === 'home') {
-        console.log(savedPosition);
         router.app.$root.$once('loadedProjects', () => {
           router.app.$nextTick(() => resolve(savedPosition));
         });

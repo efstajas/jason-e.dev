@@ -1,3 +1,5 @@
+@import '@/styles/global/breakpoints.sass'
+
 #titleSection
   position: relative
 
@@ -6,24 +8,31 @@
   padding-left: 16px
   margin-left: -16px
   margin-top: -16px
+  z-index: 5000
   
   cursor: pointer
   display: flex
   align-items: center
   #content
+    width: 256px
+    position: fixed
+    display: flex
+    left: 0
     .goBack
-      margin-right: 8px
+      opacity: 0
+      transition: transform .3s, opacity .3s
+      transform: translateX(-24px)
+      &.shown
+        opacity: 1
+        transform: translateX(16px)
     .title
-      position: absolute
-      top: 13px
+      left: 0
       transform: translateX(0px)
       transition: transform .3s
       &.nudged
         transform: translateX(24px)
-
-.arrow-enter-active, .arrow-leave-active
-  transition: transform .3s, opacity .3s
-
-.arrow-leave-to, .arrow-enter
-  transform: translateX(-24px)
-  opacity: 0
+#chapters
+  margin-top: 32px
+  position: fixed
+  @media(max-width: $tablet)
+    display: none
