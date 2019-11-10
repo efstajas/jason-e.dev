@@ -1,0 +1,11 @@
+import FIELDS from './fields';
+
+export default [
+  FIELDS.SLUG,
+  FIELDS.NAME,
+  FIELDS.DATE,
+  FIELDS.ROLE,
+  FIELDS.SUBTITLE,
+  FIELDS.TOKENS,
+  FIELDS.TOKENSDARK,
+];

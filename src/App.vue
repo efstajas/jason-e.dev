@@ -10,7 +10,7 @@
           mode="out-in"
           @after-leave="$root.$emit('triggerScroll')"
         )
-          router-view#content
+          router-view(:key="$route.params.slug")#content
       Themer(:theme="themeModule.defaultTheme")#footerContainer
         #footerContent
           router-view(name="footer")
@@ -54,6 +54,9 @@ body
       grid-template-columns: 256px auto
       grid-template-rows: auto
       grid-column-gap: 64px
+      @media(max-width: $tablet)
+        grid-template-columns: auto
+        grid-template-rows: minmax(min-content, max-content) auto
     #mainContainer
       grid-template-areas: "sidebar content"
       min-height: 100vh
@@ -62,8 +65,6 @@ body
       background-color: var(--background)
       transition: background-color .3s
       @media(max-width: $tablet)
-        grid-template-columns: auto
-        grid-template-rows: minmax(min-content, max-content) auto
         grid-template-areas: "menu" "content"
         #sidebar
           grid-area: menu
@@ -84,6 +85,8 @@ body
       background-color: var(--background)
       min-height: 256px
       padding: 128px 16px
+      @media(max-width: $tablet)
+        grid-template-areas: "footerContent footerContent"
       #footerContent
         grid-area: footerContent
 .fade-enter-active, .fade-leave-active

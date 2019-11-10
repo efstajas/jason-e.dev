@@ -40,18 +40,9 @@ export default class extends Vue {
       return;
     }
 
-    await this.projectsModule.fetchProjects({
-      query: '',
+    await this.projectsModule.getProjectsForContext({
       sort: 'date:desc',
-      fields: `
-        slug
-        name
-        date
-        role
-        subtitle
-        tokens
-        tokens_dark
-      `,
+      context: 'Listing',
     });
 
     this.applyProjectsFromStore();

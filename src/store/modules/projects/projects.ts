@@ -4,7 +4,13 @@ import {
   VuexModule,
   Action,
 } from 'vuex-module-decorators';
+
 import fetchProjects from '@/graphql/queries/project';
+
+import { Context } from '@/graphql/fieldsFor/project/contexts';
+
+import ListingFields from '@/graphql/fieldsFor/project/listing';
+import ViewFields from '@/graphql/fieldsFor/project/view';
 
 type Project = any;
 
@@ -65,6 +71,38 @@ export default class extends VuexModule {
       options.fields,
       options.sort,
     );
+    this.context.commit('appendProjects', projects.data.projects);
+    if (options.query === '') this.context.commit('setLastFetchedAllProjects', new Date());
+  }
+
+  @Action
+  async getProjectsForContext(options: {
+    context: Context,
+    query?: string,
+    sort?: string,
+    after?: string,
+    first?: number
+  }): Promise<void> {
+    let fields = [];
+
+    switch (options.context) {
+      case 'Listing':
+        fields = ListingFields;
+        break;
+      case 'View':
+        fields = ViewFields;
+        break;
+      default:
+        throw new Error('unknown project fetch context');
+    }
+
+    const projects = await fetchProjects({
+      fields: fields.join('\n'),
+      where: options.query,
+      sort: options.sort,
+      first: options.first,
+      after: options.after,
+    });
     this.context.commit('appendProjects', projects.data.projects);
     if (options.query === '') this.context.commit('setLastFetchedAllProjects', new Date());
   }
