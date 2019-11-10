@@ -61,21 +61,6 @@ export default class extends VuexModule {
   }
 
   @Action
-  async fetchProjects(options: {
-    query: string,
-    fields: string,
-    sort?: string,
-  }): Promise<void> {
-    const projects = await fetchProjects(
-      options.query,
-      options.fields,
-      options.sort,
-    );
-    this.context.commit('appendProjects', projects.data.projects);
-    if (options.query === '') this.context.commit('setLastFetchedAllProjects', new Date());
-  }
-
-  @Action
   async getProjectsForContext(options: {
     context: Context,
     query?: string,
