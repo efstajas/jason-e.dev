@@ -22,6 +22,7 @@ import InlineImage from '@/components/InlineComponents/InlineImage';
 import themeStore from '@/store/modules/theme/theme';
 import projectsStore from '@/store/modules/projects/projects';
 import subChapters from '@/store/modules/subChapters/subChapters';
+import getNextProjectSlug from '@/store/modules/projects/util';
 import { Chapter } from '../../store/modules/subChapters/subChapters.types';
 
 const md = new MarkdownIt({
@@ -47,6 +48,8 @@ export default class extends Vue {
   project: null | any = null;
 
   headlines: NodeList | null = null;
+
+  nextProject: any = null;
 
   async mounted() {
     const { slug } = this.$route.params;
@@ -80,6 +83,10 @@ export default class extends Vue {
 
   applyProjectFromStore(slug: string) {
     this.project = this.projectsModule.getProject(slug);
+    this.nextProject = getNextProjectSlug(
+      this.project.slug,
+      this.projectsModule.getAllProjects,
+    );
     this.themeModule.setTheme({
       light: this.project.tokens,
       dark: this.project.tokens_dark,

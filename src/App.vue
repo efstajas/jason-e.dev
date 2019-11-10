@@ -11,21 +11,31 @@
           @after-leave="$root.$emit('triggerScroll')"
         )
           router-view#content
+      Themer(:theme="themeModule.defaultTheme")#footerContainer
+        #footerContent
+          router-view(name="footer")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
+
 import Sidebar from '@/components/Sidebar';
 import StoreThemer from '@/components/StoreThemer';
+import Themer from '@/components/Themer';
+import themeStore from '@/store/modules/theme/theme';
 
 @Component({
   name: 'App',
   components: {
     Sidebar,
     StoreThemer,
+    Themer,
   },
 })
 export default class extends Vue {
+  themeModule = getModule(themeStore, this.$store);
+
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }
@@ -39,14 +49,15 @@ export default class extends Vue {
 body
   margin: 0
   #app
-    #mainContainer
+    #mainContainer, #footerContainer
       display: grid
       grid-template-columns: 256px auto
       grid-template-rows: auto
       grid-column-gap: 64px
+    #mainContainer
       grid-template-areas: "sidebar content"
       min-height: 100vh
-      padding: 24px 16px
+      padding: 24px 16px 128px 16px
       box-sizing: border-box
       background-color: var(--background)
       transition: background-color .3s
@@ -59,6 +70,8 @@ body
           margin-bottom: 32px
         #content
           grid-area: content
+        #footer
+          grid-area: footer
       @media(min-width: $tablet)
         #sidebar
           grid-area: sidebar
@@ -66,6 +79,13 @@ body
           transition: border .3s
         #content
           grid-area: content
+    #footerContainer
+      grid-template-areas: ". footerContent"
+      background-color: var(--background)
+      min-height: 256px
+      padding: 128px 16px
+      #footerContent
+        grid-area: footerContent
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to

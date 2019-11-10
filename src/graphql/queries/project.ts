@@ -4,16 +4,14 @@ const queryString = (
   where: string,
   fields: string,
   sort?: string,
-) => {
-  console.log(sort);
-  return `
+) => `
   query {
     projects(
       ${where ? `where: {${where}}` : ''}
       ${sort ? `sort: "${sort}"` : ''}
     ) {${fields}}
-  }`;
-};
+  }
+`;
 
 export default (
   query: string,

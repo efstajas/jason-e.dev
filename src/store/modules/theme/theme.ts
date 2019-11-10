@@ -25,7 +25,7 @@ const baseThemeDark = {
   highlight: [255, 0, 0, 1],
 } as Theme;
 
-const defaultTheme = {
+export const defaultTheme = {
   light: baseTheme,
   dark: baseThemeDark,
 } as ThemePair;
@@ -44,6 +44,10 @@ export default class extends VuexModule {
         ? this.theme.dark
         : this.theme.light;
     }
+    return this.defaultTheme;
+  }
+
+  get defaultTheme(): Theme {
     return this.isDarkMode
       ? defaultTheme.dark
       : defaultTheme.light;

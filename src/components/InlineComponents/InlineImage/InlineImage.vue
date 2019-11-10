@@ -50,7 +50,6 @@ export default class extends Vue {
     window.addEventListener('resize', this.setHeightFromImage);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   destroyed() {
     window.removeEventListener('resize', this.setHeightFromImage);
   }
