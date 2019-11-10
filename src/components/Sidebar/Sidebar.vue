@@ -9,16 +9,19 @@
           ) <-
         .title(:class="{ nudged: goHomeEnabled }") Jason Efstathiou
     scrollactive#chapters(
-      :style="{ width: width }"
       @itemchanged="activatedChapter = true"
     )
-      a(
-        class="scrollactive-item"
-        :class="{ 'is-active': !activatedChapter }"
-        v-for="chapter, index in currentChapters"
-        :key="index"
-        :href="`#${chapter.hash}`"
-      ) {{ chapter.text }}
+      transition-group(
+        name="fade"
+        :style="{ width: width }"
+      )#inner
+        a(
+          class="scrollactive-item"
+          :class="{ 'is-active': !activatedChapter }"
+          v-for="chapter, index in currentChapters"
+          :key="index"
+          :href="`#${chapter.hash}`"
+        ) {{ chapter.text }}
 </template>
 
 <script lang="ts">
@@ -46,7 +49,11 @@ export default class extends Vue {
   }) readonly goHomeEnabled!: boolean;
 
   mounted() {
-    this.width = `${(this.$refs.container as HTMLElement).offsetWidth}px`;
+    window.addEventListener('resize', this.updateWidth);
+  }
+
+  destroyed() {
+    window.removeEventListener('resize', this.updateWidth);
   }
 
   get currentChapters(): Chapter[] | null {
@@ -55,6 +62,10 @@ export default class extends Vue {
 
   handleTitleClick():void {
     if (this.goHomeEnabled) this.$router.push('/');
+  }
+
+  updateWidth(): void {
+    this.width = `${(this.$refs.container as HTMLElement).offsetWidth}px`;
   }
 }
 </script>

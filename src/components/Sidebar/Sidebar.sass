@@ -31,7 +31,7 @@
       transition: transform .3s
       &.nudged
         transform: translateX(24px)
-#chapters
+#chapters > #inner
   margin-top: 32px
   position: fixed
   display: flex
@@ -45,3 +45,9 @@
       opacity: 1
   @media(max-width: $tablet)
     display: none
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity .3s
+
+.fade-enter-from, .fade-leave-to
+  opacity: 0

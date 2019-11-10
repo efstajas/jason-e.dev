@@ -47,14 +47,12 @@ export default class extends Vue {
   }
 
   mounted() {
-    window.onresize = () => {
-      this.setHeightFromImage();
-    };
+    window.addEventListener('resize', this.setHeightFromImage);
   }
 
   // eslint-disable-next-line class-methods-use-this
   destroyed() {
-    window.onresize = null;
+    window.removeEventListener('resize', this.setHeightFromImage);
   }
 
   handleLoad() {
