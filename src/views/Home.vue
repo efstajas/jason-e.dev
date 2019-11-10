@@ -42,6 +42,7 @@ export default class extends Vue {
 
     await this.projectsModule.fetchProjects({
       query: '',
+      sort: 'date:desc',
       fields: `
         slug
         name

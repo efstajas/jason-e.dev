@@ -1,11 +1,22 @@
 import client from '@/graphql/client';
 
+const queryString = (
+  where: string,
+  fields: string,
+  sort?: string,
+) => {
+  console.log(sort);
+  return `
+  query {
+    projects(
+      ${where ? `where: {${where}}` : ''}
+      ${sort ? `sort: "${sort}"` : ''}
+    ) {${fields}}
+  }`;
+};
 
-const queryString = (where: string, fields: string) => `
-query {
-  projects(
-    where: {${where}}
-  ) {${fields}}
-}`;
-
-export default (query: string, fields: string) => client(queryString(query, fields));
+export default (
+  query: string,
+  fields: string,
+  sort?: string,
+) => client(queryString(query, fields, sort));
