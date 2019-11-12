@@ -23,7 +23,5 @@ export const sortProjectsByDate = (input: any): {
       sorted[key] = input[key];
     });
 
-  console.log(Object.keys(sorted).length);
-
   return sorted;
 };
