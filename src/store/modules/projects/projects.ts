@@ -6,9 +6,12 @@ import {
 } from 'vuex-module-decorators';
 
 import fetchProjects from '@/graphql/queries/project';
-
+import {
+  allRequiredFieldsPresent,
+  arraysMatch,
+  generateArrayOfProductsToExclude,
+} from './util';
 import { Context } from '@/graphql/fieldsFor/project/contexts';
-
 import ListingFields from '@/graphql/fieldsFor/project/listing';
 import ViewFields from '@/graphql/fieldsFor/project/view';
 
@@ -37,14 +40,21 @@ export default class extends VuexModule {
   }
 
   @Mutation
-  appendProjects(projects: Project[]): void {
-    projects.forEach((project: Project) => {
+  appendProjects(input: {
+    projects: Project[],
+    context: Context,
+  }): void {
+    input.projects.forEach((project: Project) => {
       this.fetchedProjects[project.slug] = this.fetchedProjects[project.slug]
         ? {
           ...this.fetchedProjects[project.slug],
           ...project,
+          fetchContext: input.context,
         }
-        : project;
+        : {
+          ...project,
+          fetchContext: input.context,
+        };
     });
   }
 
@@ -63,10 +73,15 @@ export default class extends VuexModule {
   @Action
   async getProjectsForContext(options: {
     context: Context,
-    query?: string,
+    projects: string[] | 'all',
+    except?: string[],
     sort?: string,
     after?: string,
-    first?: number
+    first?: number,
+    includeExisting?: boolean
+  } = {
+    context: 'Listing',
+    projects: 'all',
   }): Promise<void> {
     let fields = [];
 
@@ -81,15 +96,43 @@ export default class extends VuexModule {
         throw new Error('unknown project fetch context');
     }
 
-    const projects = await fetchProjects({
+    let projectsToExclude: string[] = (options.except) || [];
+
+    if (options.projects === 'all') {
+      projectsToExclude = generateArrayOfProductsToExclude(
+        options.context,
+        Object.keys(this.getAllProjects),
+        this.getAllProjects,
+      );
+    } else if (options.projects instanceof Array) {
+      projectsToExclude = generateArrayOfProductsToExclude(
+        options.context,
+        options.projects,
+        this.getAllProjects,
+      );
+
+      if (options.first && projectsToExclude.length >= options.first) return;
+      if (arraysMatch(options.projects, projectsToExclude)) return;
+    }
+
+    const query = `
+      ${options.projects === 'all' ? '' : `slug_in: ${JSON.stringify(options.projects)}`}
+      slug_nin: ${JSON.stringify(projectsToExclude)}
+    `;
+
+    const { projects } = (await fetchProjects({
       fields: fields.join('\n'),
-      where: options.query,
+      where: query,
       sort: options.sort,
       first: options.first,
       after: options.after,
+    })).data;
+
+    this.context.commit('appendProjects', {
+      projects,
+      context: options.context,
     });
-    this.context.commit('appendProjects', projects.data.projects);
-    if (options.query === '') this.context.commit('setLastFetchedAllProjects', new Date());
+    if (options.projects === 'all') this.context.commit('setLastFetchedAllProjects', new Date());
   }
 
   @Action

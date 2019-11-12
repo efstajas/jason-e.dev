@@ -51,17 +51,8 @@ export default class extends Vue {
   async mounted() {
     const { slug } = this.$route.params;
 
-    const project = this.projectsModule.getProject(slug);
-
-    if (project && project.content) {
-      this.applyProjectFromStore(slug);
-      return;
-    }
-
     await this.projectsModule.getProjectsForContext({
-      query: `
-        slug: "${slug}"
-      `,
+      projects: [slug],
       context: 'View',
     });
 

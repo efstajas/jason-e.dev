@@ -1,6 +1,6 @@
 export default {
-  VIEW: 'VIEW',
-  LISTING: 'LISTING',
+  VIEW: 'View',
+  LISTING: 'Listing',
 };
 
 export type Context = 'View' | 'Listing';

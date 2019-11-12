@@ -13,7 +13,11 @@
           router-view(:key="$route.params.slug")#content
       Themer(:theme="themeModule.defaultTheme")#footerContainer
         #footerContent
-          router-view(:key="$route.params.slug" name="footer")
+          transition(
+            name='fade'
+            mode="out-in"
+          )
+            router-view(:key="$route.params.slug" name="footer")
 </template>
 
 <script lang="ts">

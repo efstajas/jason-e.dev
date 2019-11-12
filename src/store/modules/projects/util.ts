@@ -1,4 +1,6 @@
 import { Project } from '@/graphql/fieldsFor/project/fields';
+import { Context } from '@/graphql/fieldsFor/project/contexts';
+import ProjectContextHierarchy from '@/graphql/fieldsFor/project/hierarchy';
 
 // get next project slug
 export default (key: string, projects: {
@@ -25,3 +27,35 @@ export const sortProjectsByDate = (input: any): {
 
   return sorted;
 };
+
+export const allRequiredFieldsPresent = (
+  context: Context,
+  project: any,
+): boolean => (
+  project
+  && (
+    ProjectContextHierarchy.indexOf(context)
+    <= ProjectContextHierarchy.indexOf(project.fetchContext)
+  )
+);
+
+export const generateArrayOfProductsToExclude = (
+  context: Context,
+  projectsToCheck: string[],
+  projects: {
+    [slug: string]: any,
+  },
+): string[] => {
+  const result: string[] = [];
+
+  projectsToCheck.forEach((slug) => {
+    if (allRequiredFieldsPresent(
+      context,
+      projects[slug],
+    )) result.push(slug);
+  });
+
+  return result;
+};
+
+export const arraysMatch = (a: any[], b: any[]) => a.join('') === b.join('');

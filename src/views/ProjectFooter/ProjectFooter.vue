@@ -35,6 +35,8 @@ export default class extends Vue {
     if (!this.nextProject) {
       await this.projectsModule.getProjectsForContext({
         context: 'Listing',
+        projects: 'all',
+        except: [slug],
         first: 1,
       });
       this.nextProject = this.getNextProjectFromStore(slug);

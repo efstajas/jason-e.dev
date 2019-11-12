@@ -36,13 +36,10 @@ export default class extends Vue {
   projects: null | any = null;
 
   async mounted() {
-    if (!this.shouldUpdateProjects()) {
-      this.applyProjectsFromStore();
-      return;
-    }
-
     await this.projectsModule.getProjectsForContext({
       sort: 'date:desc',
+      projects: 'all',
+      first: 2,
       context: 'Listing',
     });
 
@@ -51,16 +48,6 @@ export default class extends Vue {
 
   get sortedProjects() {
     return sortProjectsByDate(this.projectsModule.getAllProjects);
-  }
-
-  shouldUpdateProjects(): boolean {
-    const lastUpdated = this.projectsModule.getLastFetchedAllProjects;
-    if (!lastUpdated) return true;
-
-    const rightNow = new Date();
-    const diff = Math.abs(rightNow.getTime() - lastUpdated.getTime()) / 1000;
-
-    return diff > 1000;
   }
 
   applyProjectsFromStore(): void {
