@@ -7,7 +7,6 @@ import {
 
 import fetchProjects from '@/graphql/queries/project';
 import {
-  allRequiredFieldsPresent,
   arraysMatch,
   generateArrayOfProductsToExclude,
 } from './util';
@@ -96,20 +95,20 @@ export default class extends VuexModule {
         throw new Error('unknown project fetch context');
     }
 
-    let projectsToExclude: string[] = (options.except) || [];
+    const projectsToExclude: string[] = (options.except) || [];
 
     if (options.projects === 'all') {
-      projectsToExclude = generateArrayOfProductsToExclude(
+      projectsToExclude.concat(generateArrayOfProductsToExclude(
         options.context,
         Object.keys(this.getAllProjects),
         this.getAllProjects,
-      );
+      ));
     } else if (options.projects instanceof Array) {
-      projectsToExclude = generateArrayOfProductsToExclude(
+      projectsToExclude.concat(generateArrayOfProductsToExclude(
         options.context,
         options.projects,
         this.getAllProjects,
-      );
+      ));
 
       if (options.first && projectsToExclude.length >= options.first) return;
       if (arraysMatch(options.projects, projectsToExclude)) return;
