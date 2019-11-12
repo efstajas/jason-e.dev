@@ -8,7 +8,7 @@
     transition(name='fade' mode="out-in")
       #projects(v-if="projects")
           ProjectListing(
-            v-for="(project, index) in projects"
+            v-for="(project, index) in sortedProjects"
             :key="index"
             v-bind="project"
             :tokensDark="project.tokens_dark"
@@ -22,6 +22,7 @@ import projects from '@/graphql/queries/projects';
 import ProjectListing from '@/components/ProjectListing';
 
 import projectsStore from '@/store/modules/projects/projects';
+import { sortProjectsByDate } from '@/store/modules/projects/util';
 
 @Component({
   name: 'Home',
@@ -46,6 +47,10 @@ export default class extends Vue {
     });
 
     this.applyProjectsFromStore();
+  }
+
+  get sortedProjects() {
+    return sortProjectsByDate(this.projectsModule.getAllProjects);
   }
 
   shouldUpdateProjects(): boolean {
