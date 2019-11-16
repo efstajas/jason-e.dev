@@ -36,6 +36,10 @@ import themeStore from '@/store/modules/theme/theme';
     StoreThemer,
     Themer,
   },
+  metaInfo: {
+    title: 'Projects',
+    titleTemplate: '%s | Jason Efstathiou',
+  },
 })
 export default class extends Vue {
   themeModule = getModule(themeStore, this.$store);

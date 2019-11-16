@@ -24,6 +24,8 @@ import projectsStore from '@/store/modules/projects/projects';
 import subChapters from '@/store/modules/subChapters/subChapters';
 import { Chapter } from '../../store/modules/subChapters/subChapters.types';
 
+import Meta from './decorators';
+
 const md = new MarkdownIt({
   html: true,
   typographer: true,
@@ -57,6 +59,14 @@ export default class extends Vue {
     });
 
     this.applyProjectFromStore(slug);
+  }
+
+  @Meta
+  // eslint-disable-next-line class-methods-use-this
+  metaConfig() {
+    return {
+      title: this.project ? this.project.name : '',
+    };
   }
 
   applyProjectFromStore(slug: string) {
