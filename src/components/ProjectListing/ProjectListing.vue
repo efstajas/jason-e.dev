@@ -25,6 +25,9 @@
             :key="index"
             :style="{ backgroundColor: `rgba(${t[0]},${t[1]},${t[2]},${t[3]})`}"
           )
+        #illustration
+          svg(viewBox="0 0 498 130")
+            path(:d="illustration")
 </template>
 
 <script lang="ts">
@@ -71,6 +74,11 @@ export default class extends Vue {
     type: String,
     required: true,
   }) readonly subtitle!: string;
+
+  @Prop({
+    type: String,
+    required: false,
+  }) readonly illustration!: string;
 
   @Prop({
     type: Object,

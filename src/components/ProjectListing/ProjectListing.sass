@@ -52,6 +52,9 @@
     border: 2px solid var(--foreground)
     transition: border .3s
     padding: 16px
+    display: flex
+    flex-direction: column
+    justify-content: space-between
     #tokens
       display: flex
       .token
@@ -60,3 +63,10 @@
         border: 2px solid var(--foreground)
         transition: border .3s
         margin-right: 8px
+    #illustration
+      max-width: 496px
+      svg
+        path
+          stroke: white
+          stroke-width: 2px
+          fill: none
