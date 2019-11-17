@@ -1,7 +1,7 @@
 <template lang="pug">
   div#app
     StoreThemer
-      #mainContainer
+      #mainContainer(:class="{ loading: loadingModule.isLoading }")
         Sidebar(
           :goHomeEnabled="!isHomepage"
         )#sidebar
@@ -28,6 +28,7 @@ import Sidebar from '@/components/Sidebar';
 import StoreThemer from '@/components/StoreThemer';
 import Themer from '@/components/Themer';
 import themeStore from '@/store/modules/theme/theme';
+import loadingStore from '@/store/modules/loading/loading';
 
 @Component({
   name: 'App',
@@ -44,6 +45,8 @@ import themeStore from '@/store/modules/theme/theme';
 export default class extends Vue {
   themeModule = getModule(themeStore, this.$store);
 
+  loadingModule = getModule(loadingStore, this.$store);
+
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }
@@ -57,6 +60,7 @@ export default class extends Vue {
 body
   margin: 0
   #app
+    background-color: black
     #mainContainer, #footerContainer
       display: grid
       grid-template-columns: 256px auto
@@ -72,6 +76,8 @@ body
       box-sizing: border-box
       background-color: var(--background)
       transition: background-color .3s
+      &.loading
+        animation: loading .6 1s infinite
       @media(max-width: $tablet)
         grid-template-areas: "menu" "content"
         #sidebar
@@ -101,4 +107,13 @@ body
   transition: opacity .3s
 .fade-enter, .fade-leave-to
   opacity: 0
+
+@keyframes loading
+  0%
+    background-color: var(--background)
+  50%
+    background-color: var(--level1)
+    opacity: .5
+  100%
+    background-color: var(--background)
 </style>

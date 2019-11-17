@@ -3,6 +3,7 @@ import {
   Mutation,
   VuexModule,
   Action,
+  getModule,
 } from 'vuex-module-decorators';
 
 import fetchProjects from '@/graphql/queries/project';
@@ -82,6 +83,8 @@ export default class extends VuexModule {
     context: 'Listing',
     projects: 'all',
   }): Promise<void> {
+    this.context.dispatch('setLoading', true, { root: true });
+
     let fields = [];
 
     switch (options.context) {
@@ -132,6 +135,8 @@ export default class extends VuexModule {
       context: options.context,
     });
     if (options.projects === 'all') this.context.commit('setLastFetchedAllProjects', new Date());
+
+    this.context.dispatch('setLoading', false, { root: true });
   }
 
   @Action
