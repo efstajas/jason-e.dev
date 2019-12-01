@@ -141,7 +141,14 @@ export default class extends Vue {
   };
 
   goToProject(): void {
-    if (!this.disableHover) this.$router.push(`/${this.slug}`);
+    if (!this.disableHover) {
+      this.$router.push({
+        name: 'project',
+        params: {
+          slug: this.slug,
+        },
+      });
+    }
   }
 
   startAnimation(): void {

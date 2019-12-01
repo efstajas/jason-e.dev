@@ -24,7 +24,7 @@ import projectsStore from '@/store/modules/projects/projects';
 import subChapters from '@/store/modules/subChapters/subChapters';
 import { Chapter } from '../../store/modules/subChapters/subChapters.types';
 
-import Meta from './decorators';
+import Meta from '@/decorators/meta';
 
 const md = new MarkdownIt({
   html: true,
@@ -71,6 +71,13 @@ export default class extends Vue {
 
   applyProjectFromStore(slug: string) {
     this.project = this.projectsModule.getProject(slug);
+
+    if (!this.project) {
+      this.$router.push({
+        path: '/error',
+      });
+    }
+
     this.themeModule.setTheme({
       light: this.project.tokens,
       dark: this.project.tokens_dark,

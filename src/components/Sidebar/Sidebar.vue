@@ -61,7 +61,7 @@ export default class extends Vue {
   }
 
   handleTitleClick():void {
-    if (this.goHomeEnabled) this.$router.push('/');
+    if (this.goHomeEnabled) this.$router.push({ name: 'home' });
   }
 
   updateWidth(): void {

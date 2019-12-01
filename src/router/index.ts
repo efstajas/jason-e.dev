@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Project from '@/views/Project';
+import ErrorPage from '@/views/Error';
 import ProjectFooter from '@/views/ProjectFooter';
 
 Vue.use(VueRouter);
@@ -13,12 +14,17 @@ const routes = [
     component: Home,
   },
   {
-    path: '/:slug',
+    path: '/project/:slug',
     name: 'project',
     components: {
       default: Project,
       footer: ProjectFooter,
     },
+  },
+  {
+    path: '*',
+    name: '404',
+    component: ErrorPage,
   },
 ] as RouteConfig[];
 

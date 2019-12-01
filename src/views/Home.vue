@@ -39,7 +39,7 @@ export default class extends Vue {
     await this.projectsModule.getProjectsForContext({
       sort: 'date:desc',
       projects: 'all',
-      first: 2,
+      first: 10,
       context: 'Listing',
     });
 
