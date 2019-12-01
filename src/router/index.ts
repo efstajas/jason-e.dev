@@ -12,6 +12,9 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    meta: {
+      hideFooter: true,
+    },
   },
   {
     path: '/project/:slug',
@@ -25,6 +28,9 @@ const routes = [
     path: '*',
     name: '404',
     component: ErrorPage,
+    meta: {
+      hideFooter: true,
+    },
   },
 ] as RouteConfig[];
 

@@ -11,7 +11,10 @@
           @after-leave="$root.$emit('triggerScroll')"
         )
           router-view(:key="$route.params.slug")#content
-      Themer(:theme="themeModule.defaultTheme")#footerContainer
+      Themer(
+        :theme="themeModule.defaultTheme"
+        v-if="!$route.meta.hideFooter"
+      )#footerContainer
         #footerContent
           transition(
             name='fade'
@@ -49,6 +52,10 @@ export default class extends Vue {
 
   get isHomepage(): boolean {
     return this.$route.name === 'home';
+  }
+
+  updated() {
+    console.log(this.$route.meta.hideFooter);
   }
 }
 </script>
