@@ -1,9 +1,10 @@
+/* eslint-disable no-param-reassign */
+
 import {
   Module,
   Mutation,
   VuexModule,
   Action,
-  getModule,
 } from 'vuex-module-decorators';
 
 import fetchProjects from '@/graphql/queries/project';
@@ -25,14 +26,34 @@ export default class extends VuexModule {
     [slug: string]: Project,
   } = {};
 
+  projectAmount: number | null = null;
+
   lastFetchedAllProjects: Date | null = null;
 
-  get getProject() {
+  get projectCount(): number | null {
+    return this.projectAmount;
+  }
+
+  get getProject(): Project {
     return (slug: string) => this.fetchedProjects[slug];
   }
 
-  get getAllProjects() {
+  get getAllProjects(): { [slug: string]: Project } {
     return this.fetchedProjects;
+  }
+
+  get getAllProjectsOnPage() {
+    return (page: number) => {
+      const projects = this.getAllProjects;
+
+      Object.keys(projects).forEach((key) => {
+        if (projects[key].page !== page) {
+          delete projects[key];
+        }
+      });
+
+      return projects;
+    };
   }
 
   get getLastFetchedAllProjects() {
@@ -40,9 +61,15 @@ export default class extends VuexModule {
   }
 
   @Mutation
+  writeProjectAmount(count: number): void {
+    this.projectAmount = count;
+  }
+
+  @Mutation
   appendProjects(input: {
     projects: Project[],
     context: Context,
+    page?: number,
   }): void {
     input.projects.forEach((project: Project) => {
       this.fetchedProjects[project.slug] = this.fetchedProjects[project.slug]
@@ -50,10 +77,12 @@ export default class extends VuexModule {
           ...this.fetchedProjects[project.slug],
           ...project,
           fetchContext: input.context,
+          page: input.page,
         }
         : {
           ...project,
           fetchContext: input.context,
+          page: input.page,
         };
     });
   }
@@ -78,7 +107,9 @@ export default class extends VuexModule {
     sort?: string,
     after?: string,
     first?: number,
+    start?: number,
     includeExisting?: boolean
+    page?: number,
   } = {
     context: 'Listing',
     projects: 'all',
@@ -128,15 +159,25 @@ export default class extends VuexModule {
       sort: options.sort,
       first: options.first,
       after: options.after,
+      start: options.start,
     })).data;
 
     this.context.commit('appendProjects', {
       projects,
       context: options.context,
+      page: options.page,
     });
     if (options.projects === 'all') this.context.commit('setLastFetchedAllProjects', new Date());
 
     this.context.dispatch('setLoading', false, { root: true });
+  }
+
+  @Action
+  async fetchProjectAmount(): Promise<void> {
+    this.context.commit(
+      'writeProjectAmount',
+      await (await fetch('https://api.jason-e.dev/projects/count')).json(),
+    );
   }
 
   @Action

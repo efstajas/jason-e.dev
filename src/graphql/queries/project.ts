@@ -6,6 +6,7 @@ const queryString = (
   sort?: string,
   first?: number,
   after?: string,
+  start?: number,
 ) => `
   query {
     projects(
@@ -13,6 +14,7 @@ const queryString = (
       ${sort ? `sort: "${sort}"` : ''}
       ${first ? `limit: ${first}` : ''}
       ${after ? `after: "${after}"` : ''}
+      ${start ? `start: ${start}` : ''}
     ) {${fields}}
   }
 `;
@@ -24,6 +26,7 @@ export default (
     sort?: string,
     first?: number,
     after?: string,
+    start?: number,
   },
 ) => client(queryString(
   options.fields,
@@ -31,4 +34,5 @@ export default (
   options.sort,
   options.first,
   options.after,
+  options.start,
 ));

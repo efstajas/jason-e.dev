@@ -53,10 +53,6 @@ export default class extends Vue {
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }
-
-  updated() {
-    console.log(this.$route.meta.hideFooter);
-  }
 }
 </script>
 
