@@ -11,6 +11,7 @@ export default {
   TOKENSDARK: 'tokens_dark',
   CREDIT: 'credit',
   ILLUSTRATION: 'illustration',
+  ILLUSTRATION_VIEWBOX: 'illustrationViewbox',
 };
 
 export interface FullProject {
@@ -24,6 +25,7 @@ export interface FullProject {
   tokensDark: Theme,
   credit: string,
   illustration: string,
+  illustrationViewbox: string,
 }
 
 export type Project = Partial<FullProject>;

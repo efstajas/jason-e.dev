@@ -49,6 +49,7 @@ export default class extends Vue {
   }) readonly goHomeEnabled!: boolean;
 
   mounted() {
+    this.updateWidth();
     window.addEventListener('resize', this.updateWidth);
   }
 

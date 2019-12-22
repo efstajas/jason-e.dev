@@ -6,7 +6,7 @@
       )
       img(
         ref="img"
-        :class="{ hidden: loading, withPadding: withPadding }"
+        :class="{ hidden: loading, withPadding: padding }"
         :src="src"
         @load="handleLoad"
       )
@@ -38,7 +38,7 @@ export default class extends Vue {
   @Prop({
     type: Boolean,
     required: false,
-  }) readonly withPadding!: boolean;
+  }) readonly padding!: boolean;
 
   get desiredHeight(): string {
     return this.loading

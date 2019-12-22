@@ -30,7 +30,7 @@
             svg(
               id="animate"
               :class="{ animateIn: shouldAnimate }"
-              viewBox="0 0 327 86"
+              :viewBox="illustrationViewbox || defaultViewbox"
               v-html="illustration"
             )
 </template>
@@ -45,6 +45,8 @@ import themeStore from '@/store/modules/theme/theme';
 import Themer from '@/components/Themer';
 import { Theme, Token } from '../../store/modules/theme/theme.types';
 
+const DEFAULT_VIEWBOX = '0 0 327 86';
+
 @Component({
   name: 'ProjectListing',
   components: {
@@ -58,6 +60,8 @@ export default class extends Vue {
   themeModule = getModule(themeStore, this.$store);
 
   shouldAnimate: boolean = false;
+
+  defaultViewbox: string = DEFAULT_VIEWBOX;
 
   @Prop({
     type: String,
@@ -88,6 +92,11 @@ export default class extends Vue {
     type: String,
     required: false,
   }) readonly illustration!: string;
+
+  @Prop({
+    type: String,
+    required: false,
+  }) readonly illustrationViewbox!: string;
 
   @Prop({
     type: Object,
@@ -130,6 +139,8 @@ export default class extends Vue {
       const length = (path as SVGGeometryElement).getTotalLength();
       path.setAttribute('style', `stroke-dasharray: ${length}; stroke-dashoffset: ${length}`);
     });
+
+    console.log(this.illustrationViewbox);
   }
 
   parseDate = (input: string): string => {
