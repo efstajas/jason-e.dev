@@ -17,7 +17,7 @@ import VRuntimeTemplate from 'v-runtime-template';
 import { getModule } from 'vuex-module-decorators';
 
 import ProjectListing from '@/components/ProjectListing';
-import InlineImage from '@/components/InlineComponents/InlineImage';
+import { InlineImage, InlineLink } from '@/components/InlineComponents';
 
 import themeStore from '@/store/modules/theme/theme';
 import projectsStore from '@/store/modules/projects/projects';
@@ -37,6 +37,7 @@ const md = new MarkdownIt({
     ProjectListing,
     VRuntimeTemplate,
     InlineImage,
+    InlineLink,
   },
 })
 export default class extends Vue {

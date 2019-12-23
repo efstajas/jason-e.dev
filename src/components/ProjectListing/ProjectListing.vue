@@ -139,8 +139,6 @@ export default class extends Vue {
       const length = (path as SVGGeometryElement).getTotalLength();
       path.setAttribute('style', `stroke-dasharray: ${length}; stroke-dashoffset: ${length}`);
     });
-
-    console.log(this.illustrationViewbox);
   }
 
   parseDate = (input: string): string => {

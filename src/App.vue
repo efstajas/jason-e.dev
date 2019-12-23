@@ -1,7 +1,9 @@
 <template lang="pug">
   div#app
     StoreThemer
-      #mainContainer(:class="{ loading: loadingModule.isLoading }")
+      #mainContainer(
+        :class="{ loading: loadingModule.isLoading, homepage: isHomepage }"
+      )
         Sidebar(
           :goHomeEnabled="!isHomepage"
         )#sidebar
@@ -53,10 +55,6 @@ export default class extends Vue {
   get isHomepage(): boolean {
     return this.$route.name === 'home';
   }
-
-  updated() {
-    console.log(this.$route.meta.hideFooter);
-  }
 }
 </script>
 
@@ -73,6 +71,7 @@ body
       grid-template-columns: 256px auto
       grid-template-rows: auto
       grid-column-gap: 64px
+      transition: all .3s
       @media(max-width: $tablet)
         grid-template-columns: auto
         grid-template-rows: minmax(min-content, max-content) auto
@@ -82,7 +81,7 @@ body
       padding: 24px 16px 128px 16px
       box-sizing: border-box
       background-color: var(--background)
-      transition: background-color .3s
+      transition: all .3s
       &.loading
         animation: loading .6 1s infinite
       @media(max-width: $tablet)

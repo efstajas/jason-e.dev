@@ -11,15 +11,15 @@
     scrollactive#chapters(
       @itemchanged="activatedChapter = true"
     )
-      transition-group(
+      #inner(
         name="fade"
         :style="{ width: width }"
-      )#inner
+      )
         a(
           class="scrollactive-item"
           :class="{ 'is-active': !activatedChapter }"
           v-for="chapter, index in currentChapters"
-          :key="index"
+          :key="chapter.hash"
           :href="`#${chapter.hash}`"
         ) {{ chapter.text }}
 </template>
