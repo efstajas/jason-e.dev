@@ -41,7 +41,7 @@ import { Chapter } from '@/store/modules/subChapters/subChapters.types';
 export default class extends Vue {
   chaptersModule = getModule(subChapters, this.$store);
 
-  width: string | null = null;
+  width: string | null = '256px';
 
   activatedChapter: boolean = false;
 
@@ -51,25 +51,12 @@ export default class extends Vue {
     default: false,
   }) readonly goHomeEnabled!: boolean;
 
-  mounted() {
-    this.updateWidth();
-    window.addEventListener('resize', this.updateWidth);
-  }
-
-  destroyed() {
-    window.removeEventListener('resize', this.updateWidth);
-  }
-
   get currentChapters(): Chapter[] | null {
     return this.chaptersModule.currentChapters;
   }
 
   handleTitleClick():void {
     if (this.goHomeEnabled) this.$router.push({ name: 'home' });
-  }
-
-  updateWidth(): void {
-    this.width = `${(this.$refs.container as HTMLElement).offsetWidth}px`;
   }
 }
 </script>

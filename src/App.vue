@@ -85,6 +85,8 @@ body
       transition: all .3s
       &.loading
         animation: loading .6 1s infinite
+      #content
+        max-width: 1100px
       @media(max-width: $tablet)
         grid-template-areas: "menu" "content"
         #sidebar
@@ -102,6 +104,7 @@ body
         #content
           grid-area: content
     #footerContainer
+      grid-template-columns: 256px auto
       grid-template-areas: ". footerContent"
       background-color: var(--background)
       min-height: 256px
@@ -109,6 +112,7 @@ body
       @media(max-width: $tablet)
         grid-template-areas: "footerContent footerContent"
       #footerContent
+        max-width: 1100px
         grid-area: footerContent
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
