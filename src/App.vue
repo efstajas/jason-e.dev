@@ -64,6 +64,7 @@ export default class extends Vue {
 
 body
   margin: 0
+  overflow-x: hidden
   #app
     background-color: black
     #mainContainer, #footerContainer
