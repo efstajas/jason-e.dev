@@ -69,7 +69,7 @@ body
     background-color: black
     #mainContainer, #footerContainer
       display: grid
-      grid-template-columns: 256px auto
+      grid-template-columns: min-content auto
       grid-template-rows: auto
       grid-column-gap: 64px
       transition: all .3s

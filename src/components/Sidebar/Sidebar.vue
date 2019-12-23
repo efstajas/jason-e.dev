@@ -1,7 +1,10 @@
 <template lang="pug">
-  div#Sidebar(ref="container")
+  div#Sidebar(
+    ref="container"
+  )
     #titleSection(
       @click="handleTitleClick"
+      :class="{ extended: goHomeEnabled }"
     )
       #content(:style="{ width: width }")
         .goBack(

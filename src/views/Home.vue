@@ -59,6 +59,7 @@ export default class extends Vue {
 
 <style lang="sass" scoped>
 #intro
+  margin-top: 64px
   margin-bottom: 128px
   #haveALook
     margin-top: 64px

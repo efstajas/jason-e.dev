@@ -10,11 +10,14 @@
   margin-top: -16px
   z-index: 5000
   
+  width: 0px
   cursor: pointer
   display: flex
   align-items: center
-  #content
+  transition: all .3s
+  &.extended
     width: 256px
+  #content
     position: fixed
     display: flex
     left: 0
@@ -27,8 +30,9 @@
         transform: translateX(16px)
     .title
       left: 0
-      transform: translateX(0px)
-      transition: transform .3s
+      transform: translateX(64px)
+      transition: all .3s
+      background-color: var(--background)
       &.nudged
         transform: translateX(24px)
 #chapters > #inner
