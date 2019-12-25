@@ -31,6 +31,8 @@
     .title
       left: 0
       transform: translateX(64px)
+      @media(max-width: $tablet)
+        transform: translateX(0)
       transition: all .3s
       background-color: var(--background)
       &.nudged
