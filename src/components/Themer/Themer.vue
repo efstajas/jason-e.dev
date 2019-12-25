@@ -17,9 +17,7 @@ This component applies a theme to everything wrapped in it.
 It converts tokens to css variables and passes them down the DOM.
 */
 
-const makeRgbaStringFromToken = (
-  token: Token,
-): string => `rgba(${token[0]},${token[1]},${token[2]},${token[3]})`;
+import makeRgbaStringFromToken from './util/makeRgbaStringFromToken';
 
 const makeVariableFromToken = (
   name: string,
