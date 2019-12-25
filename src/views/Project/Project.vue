@@ -67,6 +67,10 @@ export default class extends Vue {
   metaConfig() {
     return {
       title: this.project ? this.project.name : '',
+      meta: [{
+        name: 'theme-color',
+        content: this.project ? this.project.tokens : '#FFFFFF',
+      }],
     };
   }
 
