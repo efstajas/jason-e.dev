@@ -7,9 +7,9 @@ export interface Theme {
     level3: Token,
     foreground: Token,
     highlight: Token,
-};
+}
 
 export interface ThemePair {
     dark: Theme,
     light: Theme,
-};
+}
