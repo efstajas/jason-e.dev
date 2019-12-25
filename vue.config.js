@@ -6,5 +6,6 @@ module.exports = {
   runtimeCompiler: true,
   pwa: {
     themeColor: '#FFFFFF',
+    name: 'Jason Efstathiou',
   },
 };
