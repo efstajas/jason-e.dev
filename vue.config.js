@@ -4,4 +4,7 @@ module.exports = {
     config.devtool = 'source-map';
   },
   runtimeCompiler: true,
+  pwa: {
+    themeColor: '#FFFFFF',
+  },
 };
