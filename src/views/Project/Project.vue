@@ -6,17 +6,17 @@
       .headline(v-for="headline, index in headlines" :key="index")
         a(:href="`#${headline.id}`") {{ headline.innerHTML }}
     #text
-      VRuntimeTemplate(:template="projectContent")
+      RichText(:template="projectContent")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import MarkdownIt from 'markdown-it';
 import MarkdownItDecorate from 'markdown-it-decorate';
-import VRuntimeTemplate from 'v-runtime-template';
 import { getModule } from 'vuex-module-decorators';
 
 import ProjectListing from '@/components/ProjectListing';
+import RichText from '@/components/RichText';
 import { InlineImage, InlineLink } from '@/components/InlineComponents';
 
 import themeStore from '@/store/modules/theme/theme';
@@ -36,10 +36,8 @@ const md = new MarkdownIt({
 @Component({
   name: 'Project',
   components: {
+    RichText,
     ProjectListing,
-    VRuntimeTemplate,
-    InlineImage,
-    InlineLink,
   },
 })
 export default class extends Vue {
@@ -106,7 +104,7 @@ export default class extends Vue {
 
     this.updateHeadlines(div);
 
-    return `<div>${div.innerHTML}</div>`;
+    return div.innerHTML;
   }
 
   updateHeadlines(div: HTMLDivElement) {

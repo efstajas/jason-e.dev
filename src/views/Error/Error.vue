@@ -16,6 +16,7 @@ export default class extends Vue {
   // eslint-disable-next-line class-methods-use-this
   metaConfig() {
     return {
+      title: 'Error 404',
       meta: [
         {
           name: 'robots',

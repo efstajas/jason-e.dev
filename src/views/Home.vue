@@ -2,9 +2,10 @@
   div#Home
     #intro
       p I'm a Product Owner, full-stack developer & UX designer.
-      br
       p I'm currently working at Grover.
-      p#haveALook Have a look at some selected projects:
+      br
+      router-link(to="/about") Read some more about me & my work here.
+      p#haveALook Or, have a look at some selected projects:
     transition(name='fade' mode="out-in")
       #projects(v-if="projects")
           ProjectListing(
@@ -70,4 +71,7 @@ export default class extends Vue {
   transition: opacity .3s
 .fade-enter, .fade-leave-to
   opacity: 0
+a
+  text-decoration: underline
+  cursor: pointer
 </style>

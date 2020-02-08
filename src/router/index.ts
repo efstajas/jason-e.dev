@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Project from '@/views/Project';
+import About from '@/views/About';
 import ErrorPage from '@/views/Error';
 import ProjectFooter from '@/views/ProjectFooter';
 
@@ -22,6 +23,16 @@ const routes = [
     components: {
       default: Project,
       footer: ProjectFooter,
+    },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    components: {
+      default: About,
+    },
+    meta: {
+      hideFooter: true,
     },
   },
   {
