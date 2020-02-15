@@ -90,7 +90,6 @@ export default class extends Vue {
 
   mounted() {
     window.addEventListener('resize', this.setHeightFromImage);
-    console.log(this.colorMatrix);
   }
 
   destroyed() {
