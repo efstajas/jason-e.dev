@@ -4,7 +4,8 @@
       name='fade'
       mode="out-in"
     )
-      RichText(:template="template" v-if="!loading")#text
+      RichText(key="content" :template="template" v-if="!loading")#text
+      LoadingIndicator#loading(key="loading" v-else)
 </template>
 
 <script lang="ts">
@@ -13,6 +14,7 @@ import MarkdownIt from 'markdown-it';
 import MarkdownItDecorate from 'markdown-it-decorate';
 
 import RichText from '@/components/RichText';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 import Meta from '@/decorators/meta';
 import query from '@/graphql/queries/aboutPage';
@@ -26,6 +28,7 @@ const md = new MarkdownIt({
   name: 'About',
   components: {
     RichText,
+    LoadingIndicator,
   },
 })
 export default class extends Vue {
