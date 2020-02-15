@@ -4,10 +4,22 @@
       #loading(
         v-if="loading"
       )
+      svg(
+        height="0"
+        width="0"
+        v-if="refillwithforeground"
+      )
+        defs
+          filter(:id="`recolorme-${_uid}`")
+            feColorMatrix(
+              type="matrix"
+              :values="colorMatrix"
+            )
       img(
         ref="img"
         :class="{ hidden: loading, withPadding: padding }"
         :src="src"
+        :style="{ filter: `url(#recolorme-${_uid})` }"
         @load="handleLoad"
       )
     #subtitle(v-if="subtitle")
@@ -16,11 +28,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
+
+import themeStore from '@/store/modules/theme/theme';
+
+import calculateColorMatrix from './calculateColorMatrix';
 
 @Component({
   name: 'InlineImage',
 })
 export default class extends Vue {
+  themeModule = getModule(themeStore, this.$store);
+
   loading: boolean = true;
 
   height: string = '256px';
@@ -38,6 +57,12 @@ export default class extends Vue {
   @Prop({
     type: Boolean,
     required: false,
+    default: false,
+  }) readonly refillwithforeground!: boolean;
+
+  @Prop({
+    type: Boolean,
+    required: false,
   }) readonly padding!: boolean;
 
   get desiredHeight(): string {
@@ -46,8 +71,26 @@ export default class extends Vue {
       : this.height;
   }
 
+  get foregroundToken() {
+    return this.themeModule.currentTheme.foreground;
+  }
+
+  get colorMatrixValues() {
+    return calculateColorMatrix(...this.foregroundToken);
+  }
+
+  get colorMatrix() {
+    return `
+      0 0 0 0 ${this.colorMatrixValues.r}
+      0 0 0 0 ${this.colorMatrixValues.g}
+      0 0 0 0 ${this.colorMatrixValues.b}
+      0 0 0 ${this.colorMatrixValues.a} 0
+    `;
+  }
+
   mounted() {
     window.addEventListener('resize', this.setHeightFromImage);
+    console.log(this.colorMatrix);
   }
 
   destroyed() {
