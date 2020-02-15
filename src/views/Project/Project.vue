@@ -6,7 +6,9 @@
       .headline(v-for="headline, index in headlines" :key="index")
         a(:href="`#${headline.id}`") {{ headline.innerHTML }}
     #text
-      RichText(:template="projectContent")
+      transition(name='fade' mode="out-in")
+        RichText(:template="projectContent" v-if="!isLoading && projectContent")
+        LoadingIndicator(v-else)
 </template>
 
 <script lang="ts">
@@ -16,10 +18,12 @@ import MarkdownItDecorate from 'markdown-it-decorate';
 import { getModule } from 'vuex-module-decorators';
 
 import ProjectListing from '@/components/ProjectListing';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import RichText from '@/components/RichText';
 import { InlineImage, InlineLink } from '@/components/InlineComponents';
 
 import themeStore from '@/store/modules/theme/theme';
+import loadingStore from '@/store/modules/loading/loading';
 import projectsStore from '@/store/modules/projects/projects';
 import subChapters from '@/store/modules/subChapters/subChapters';
 import { Chapter } from '../../store/modules/subChapters/subChapters.types';
@@ -37,11 +41,14 @@ const md = new MarkdownIt({
   name: 'Project',
   components: {
     RichText,
+    LoadingIndicator,
     ProjectListing,
   },
 })
 export default class extends Vue {
   themeModule = getModule(themeStore, this.$store);
+
+  loadingModule = getModule(loadingStore, this.$store);
 
   chaptersModule = getModule(subChapters, this.$store);
 
@@ -93,6 +100,10 @@ export default class extends Vue {
       light: this.project.tokens,
       dark: this.project.tokens_dark,
     });
+  }
+
+  get isLoading() {
+    return this.loadingModule.isLoading;
   }
 
   get projectContent(): string | null {
