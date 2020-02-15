@@ -6,14 +6,15 @@
       br
       router-link(to="/about") Read some more about me & my work here.
       p#haveALook Or, have a look at some selected projects:
-    transition(name='fade' mode="out-in")
-      #projects(v-if="projects")
+    transition(name='fade' mode='out-in')
+      #projects(key="projects" v-if="!isLoading && projects")
           ProjectListing(
             v-for="(project, index) in sortedProjects"
             :key="index"
             v-bind="project"
             :tokensDark="project.tokens_dark"
           )
+      LoadingIndicator#loading(key="loading" v-else)
 </template>
 
 <script lang="ts">
@@ -21,7 +22,9 @@ import { Component, Vue } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 import projects from '@/graphql/queries/projects';
 import ProjectListing from '@/components/ProjectListing';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
+import loadingStore from '@/store/modules/loading/loading';
 import projectsStore from '@/store/modules/projects/projects';
 import { sortProjectsByDate } from '@/store/modules/projects/util';
 
@@ -29,10 +32,13 @@ import { sortProjectsByDate } from '@/store/modules/projects/util';
   name: 'Home',
   components: {
     ProjectListing,
+    LoadingIndicator,
   },
 })
 export default class extends Vue {
   projectsModule = getModule(projectsStore, this.$store);
+
+  loadingModule = getModule(loadingStore, this.$store);
 
   projects: null | any = null;
 
@@ -45,6 +51,10 @@ export default class extends Vue {
     });
 
     this.applyProjectsFromStore();
+  }
+
+  get isLoading() {
+    return this.loadingModule.isLoading;
   }
 
   get sortedProjects() {

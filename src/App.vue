@@ -2,7 +2,7 @@
   div#app
     StoreThemer
       #mainContainer(
-        :class="{ loading: loadingModule.isLoading, homepage: isHomepage }"
+        :class="{ homepage: isHomepage }"
       )
         Sidebar(
           :goHomeEnabled="!isHomepage"
@@ -84,7 +84,7 @@ body
       background-color: var(--background)
       transition: all .3s
       &.loading
-        animation: loading .6 1s infinite
+        animation: loading .6s 1s infinite
       #content
         max-width: 1100px
       @media(max-width: $tablet)
@@ -121,10 +121,9 @@ body
 
 @keyframes loading
   0%
-    background-color: var(--background)
+    opacity: 1
   50%
-    background-color: var(--level1)
     opacity: .5
   100%
-    background-color: var(--background)
+    opacity: 1
 </style>
