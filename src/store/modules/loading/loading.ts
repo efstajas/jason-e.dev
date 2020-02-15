@@ -22,8 +22,13 @@ export default class extends VuexModule {
     }, 500);
   }
 
+  @Mutation
+  writeLoading(value: boolean): void {
+    this.loading = value;
+  }
+
   @Action
   setLoading(value: boolean): void {
-    this.context.commit('writeLoadingWithTimeout', value);
+    this.context.commit('writeLoading', value);
   }
 }
