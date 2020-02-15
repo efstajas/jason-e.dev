@@ -1,6 +1,10 @@
 <template lang="pug">
   div#About
-    RichText(:template="template")#text
+    transition(
+      name='fade'
+      mode="out-in"
+    )
+      RichText(:template="template" v-if="!loading")#text
 </template>
 
 <script lang="ts">
@@ -25,19 +29,22 @@ const md = new MarkdownIt({
   },
 })
 export default class extends Vue {
-  content: string = '';
+  private content: string = '';
 
-  async mounted() {
+  private loading: boolean = true;
+
+  private async mounted() {
     this.content = (await query()).content;
+    this.loading = false;
   }
 
-  get template(): string {
+  private get template(): string {
     return md.render(this.content);
   }
 
   @Meta
   // eslint-disable-next-line class-methods-use-this
-  metaConfig() {
+  private metaConfig() {
     return {
       title: 'About',
     };
