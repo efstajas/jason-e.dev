@@ -1,6 +1,6 @@
 <template lang="pug">
   div#InlineImage
-    #image(:style="{ height: desiredHeight }")
+    #image(:style="{ height: desiredHeight, backgroundColor: forcedbackground }")
       #loading(
         v-if="loading"
       )
@@ -63,7 +63,12 @@ export default class extends Vue {
   @Prop({
     type: Boolean,
     required: false,
-  }) readonly padding!: boolean;
+  }) readonly padding?: boolean;
+
+  @Prop({
+    type: String,
+    required: false,
+  }) readonly forcedbackground?: string;
 
   get desiredHeight(): string {
     return this.loading
