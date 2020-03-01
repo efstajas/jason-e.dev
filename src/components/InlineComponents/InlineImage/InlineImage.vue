@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#InlineImage
+  div#InlineImage(ref="root")
     #image(:style="{ height: desiredHeight, backgroundColor: forcedbackground }")
       #loading(
         v-if="loading"
@@ -16,6 +16,7 @@
               :values="colorMatrix"
             )
       img(
+        v-if="inView"
         ref="img"
         :class="{ hidden: loading, withPadding: padding }"
         :src="src"
@@ -43,6 +44,12 @@ export default class extends Vue {
   loading: boolean = true;
 
   height: string = '256px';
+
+  intersectionObserver: IntersectionObserver | null = null;
+
+  inView: boolean = false;
+
+  inViewTimeoutId: number | null = null;
 
   @Prop({
     type: String,
@@ -93,12 +100,38 @@ export default class extends Vue {
     `;
   }
 
-  mounted() {
+  async mounted() {
     window.addEventListener('resize', this.setHeightFromImage);
+
+    await this.$nextTick;
+    this.observeInView();
   }
 
   destroyed() {
     window.removeEventListener('resize', this.setHeightFromImage);
+    if (this.intersectionObserver) this.intersectionObserver.disconnect();
+  }
+
+  observeInView() {
+    this.intersectionObserver = new IntersectionObserver((e) => {
+      /*
+      Debouncing mechanism so that using the sidebar to jump to a specific
+      section doesn't trigger all images in between to load.
+      */
+      if (this.inViewTimeoutId && e[0].isIntersecting === false) {
+        clearTimeout(this.inViewTimeoutId);
+        this.inViewTimeoutId = null;
+      } else {
+        this.inViewTimeoutId = setTimeout(() => {
+          this.inView = e[0].isIntersecting;
+          this.inViewTimeoutId = null;
+        }, 300);
+      }
+    }, {
+      root: null,
+    });
+
+    this.intersectionObserver.observe(this.$refs.root as HTMLDivElement);
   }
 
   handleLoad() {
