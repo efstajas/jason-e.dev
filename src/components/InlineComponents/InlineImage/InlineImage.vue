@@ -16,7 +16,7 @@
               :values="colorMatrix"
             )
       img(
-        v-if="inView"
+        v-if="inView || (loading === false)"
         ref="img"
         :class="{ hidden: loading, withPadding: padding }"
         :src="src"
