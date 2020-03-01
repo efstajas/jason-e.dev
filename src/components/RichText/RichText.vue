@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#RichText
+  article#RichText
     VRuntimeTemplate(:template="wrappedTemplate")#template
 </template>
 
