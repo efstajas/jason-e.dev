@@ -3,6 +3,7 @@
     #image(:style="{ height: desiredHeight, backgroundColor: forcedbackground }")
       #loading(
         v-if="loading"
+        :style="{ height: height }"
       )
       svg(
         height="0"
@@ -35,6 +36,8 @@ import themeStore from '@/store/modules/theme/theme';
 
 import calculateColorMatrix from './calculateColorMatrix';
 
+const INITIAL_HEIGHT = '450px';
+
 @Component({
   name: 'InlineImage',
 })
@@ -43,7 +46,7 @@ export default class extends Vue {
 
   loading: boolean = true;
 
-  height: string = '256px';
+  height: string = INITIAL_HEIGHT;
 
   intersectionObserver: IntersectionObserver | null = null;
 
@@ -79,7 +82,7 @@ export default class extends Vue {
 
   get desiredHeight(): string {
     return this.loading
-      ? '256px'
+      ? INITIAL_HEIGHT
       : this.height;
   }
 
