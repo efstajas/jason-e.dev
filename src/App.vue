@@ -73,7 +73,7 @@ body
       grid-template-rows: auto
       grid-column-gap: 64px
       transition: all .3s
-      @media(max-width: $tablet)
+      @media(max-width: $laptop)
         grid-template-columns: auto
         grid-template-rows: minmax(min-content, max-content) auto
     #mainContainer
@@ -87,7 +87,7 @@ body
         animation: loading .6s 1s infinite
       #content
         max-width: 1100px
-      @media(max-width: $tablet)
+      @media(max-width: $laptop)
         grid-template-areas: "menu" "content"
         #sidebar
           grid-area: menu
@@ -96,7 +96,7 @@ body
           grid-area: content
         #footer
           grid-area: footer
-      @media(min-width: $tablet)
+      @media(min-width: $laptop)
         #sidebar
           grid-area: sidebar
           border-right: 2px solid var(--foreground)
@@ -109,7 +109,7 @@ body
       background-color: var(--background)
       min-height: 256px
       padding: 128px 16px
-      @media(max-width: $tablet)
+      @media(max-width: $laptop)
         grid-template-areas: "footerContent footerContent"
       #footerContent
         max-width: 1100px

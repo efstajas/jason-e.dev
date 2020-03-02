@@ -11,8 +11,9 @@
   font-style: italic
 #text
   min-height: 100vh
-  @media(min-width: $tablet)
-    max-width: percentage(2/3)
+  max-width: percentage(2/3)
+  @media(max-width: $laptop)
+    max-width: none
 #text::v-deep
   p
     margin-bottom: 32px

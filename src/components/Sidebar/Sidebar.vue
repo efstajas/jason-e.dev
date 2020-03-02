@@ -41,7 +41,7 @@ import { Chapter } from '@/store/modules/subChapters/subChapters.types';
 export default class extends Vue {
   chaptersModule = getModule(subChapters, this.$store);
 
-  width: string | null = '256px';
+  width: string | null = '320px';
 
   activatedChapter: boolean = false;
 
