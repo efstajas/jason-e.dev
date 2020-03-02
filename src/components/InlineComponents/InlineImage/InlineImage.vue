@@ -3,7 +3,7 @@
     #image(:style="{ height: desiredHeight, backgroundColor: forcedbackground }")
       #loading(
         v-if="loading"
-        :style="{ height: height }"
+        :style="{ height: `${normalizedInitialHeight}px` }"
       )
       svg(
         height="0"
@@ -36,7 +36,8 @@ import themeStore from '@/store/modules/theme/theme';
 
 import calculateColorMatrix from './calculateColorMatrix';
 
-const INITIAL_HEIGHT = '450px';
+const WIDTH_BASE: number = 700;
+const INITIAL_HEIGHT: number = 460;
 
 @Component({
   name: 'InlineImage',
@@ -46,7 +47,9 @@ export default class extends Vue {
 
   loading: boolean = true;
 
-  height: string = INITIAL_HEIGHT;
+  width: number | null = null;
+
+  height: string = `${INITIAL_HEIGHT}px`;
 
   intersectionObserver: IntersectionObserver | null = null;
 
@@ -80,9 +83,16 @@ export default class extends Vue {
     required: false,
   }) readonly forcedbackground?: string;
 
+  get normalizedInitialHeight(): number | null {
+    if (!this.width) return null;
+
+    const percentage = this.width / WIDTH_BASE;
+    return percentage * INITIAL_HEIGHT;
+  }
+
   get desiredHeight(): string {
     return this.loading
-      ? INITIAL_HEIGHT
+      ? `${this.normalizedInitialHeight}px`
       : this.height;
   }
 
@@ -104,14 +114,18 @@ export default class extends Vue {
   }
 
   async mounted() {
-    window.addEventListener('resize', this.setHeightFromImage);
+    window.addEventListener('resize', this.updateHeight);
+
+    window.addEventListener('resize', this.updateWidth);
+    this.updateWidth();
 
     await this.$nextTick;
     this.observeInView();
   }
 
   destroyed() {
-    window.removeEventListener('resize', this.setHeightFromImage);
+    window.removeEventListener('resize', this.updateHeight);
+    window.removeEventListener('resize', this.updateHeight);
     if (this.intersectionObserver) this.intersectionObserver.disconnect();
   }
 
@@ -139,10 +153,14 @@ export default class extends Vue {
 
   handleLoad() {
     this.loading = false;
-    this.setHeightFromImage();
+    this.updateHeight();
   }
 
-  setHeightFromImage() {
+  updateWidth() {
+    this.width = (this.$refs.root as HTMLDivElement).clientWidth;
+  }
+
+  updateHeight() {
     this.height = `${(this.$refs.img as HTMLElement).offsetHeight}px`;
   }
 }
