@@ -1,9 +1,16 @@
+/*
+ATTENTION
+This file is a bit insane. I've tried abstracting the logic too much
+and ended up with a comically convoluted system for fetching projects.
+
+TODO: Rewrite this whole thing and make it less crazy.
+*/
+
 import {
   Module,
   Mutation,
   VuexModule,
   Action,
-  getModule,
 } from 'vuex-module-decorators';
 
 import fetchProjects from '@/graphql/queries/project';
