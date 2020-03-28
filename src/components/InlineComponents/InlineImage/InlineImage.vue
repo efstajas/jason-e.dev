@@ -1,6 +1,8 @@
+<!-- TODO: Refactor using "LazyLoadingElement" component -->
+
 <template lang="pug">
   div#InlineImage(ref="root")
-    #image(:style="{ height: desiredHeight, backgroundColor: forcedbackground }")
+    #image(:style="{ height: desiredHeight, backgroundColor: background }")
       #loading(
         v-if="loading"
         :style="{ height: `${normalizedInitialHeight}px` }"
@@ -13,6 +15,7 @@
         defs
           filter(:id="`recolorme-${_uid}`")
             feColorMatrix(
+              color-interpolation-filters="sRGB"
               type="matrix"
               :values="colorMatrix"
             )
@@ -35,6 +38,7 @@ import { getModule } from 'vuex-module-decorators';
 import themeStore from '@/store/modules/theme/theme';
 
 import calculateColorMatrix from './calculateColorMatrix';
+import { Theme } from '../../../store/modules/theme/theme.types';
 
 const WIDTH_BASE: number = 700;
 const INITIAL_HEIGHT: number = 460;
@@ -102,6 +106,21 @@ export default class extends Vue {
 
   get colorMatrixValues() {
     return calculateColorMatrix(...this.foregroundToken);
+  }
+
+  get background() {
+    if (!this.forcedbackground || this.loading) return '';
+
+    const token = this.themeModule.currentTheme[this.forcedbackground as keyof Theme];
+    let color = '';
+
+    if (token) {
+      color = `rgba(${token[0]}, ${token[1]}, ${token[2]}, ${token[3]}`;
+    } else {
+      color = this.forcedbackground;
+    }
+
+    return color;
   }
 
   get colorMatrix() {

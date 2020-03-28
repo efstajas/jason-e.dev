@@ -85,7 +85,7 @@ export default class extends VuexModule {
     sort?: string,
     after?: string,
     first?: number,
-    includeExisting?: boolean
+    includeExisting?: boolean,
   } = {
     context: 'Listing',
     projects: 'all',
@@ -124,9 +124,12 @@ export default class extends VuexModule {
       if (arraysMatch(options.projects, projectsToExclude)) return;
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+
     const query = `
       ${options.projects === 'all' ? '' : `slug_in: ${JSON.stringify(options.projects)}`}
       slug_nin: ${JSON.stringify(projectsToExclude)}
+      ${urlParams.get('drafts') === 'yes' ? 'status: "draft"' : ''}
     `;
 
     const { projects } = (await fetchProjects({

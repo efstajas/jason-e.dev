@@ -20,7 +20,6 @@ import { getModule } from 'vuex-module-decorators';
 import ProjectListing from '@/components/ProjectListing';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import RichText from '@/components/RichText';
-import { InlineImage, InlineLink } from '@/components/InlineComponents';
 
 import themeStore from '@/store/modules/theme/theme';
 import loadingStore from '@/store/modules/loading/loading';

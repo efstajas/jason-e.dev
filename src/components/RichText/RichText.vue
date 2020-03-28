@@ -7,13 +7,14 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import VRuntimeTemplate from 'v-runtime-template';
 
-import { InlineImage, InlineLink } from '@/components/InlineComponents';
+import { InlineImage, InlineLink, InlineVideo } from '@/components/InlineComponents';
 
 @Component({
   name: 'RichText',
   components: {
     InlineImage,
     InlineLink,
+    InlineVideo,
     VRuntimeTemplate,
   },
 })

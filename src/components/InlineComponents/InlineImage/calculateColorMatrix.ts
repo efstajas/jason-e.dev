@@ -8,6 +8,6 @@ export default function (
     r: r / 255,
     g: g / 255,
     b: b / 255,
-    a: 1,
+    a,
   };
 }
