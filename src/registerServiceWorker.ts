@@ -2,7 +2,14 @@
 
 import { register } from 'register-service-worker';
 
-if (process.env.NODE_ENV === 'production') {
+/*
+Exclude Safari because service workers on Safari
+cause issues with fetching videos.
+https://medium.com/@adactio/service-workers-and-videos-in-safari-616529ccb0ab
+*/
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+if (!isSafari && process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log(

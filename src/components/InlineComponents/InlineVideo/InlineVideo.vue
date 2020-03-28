@@ -8,11 +8,12 @@
     )
       video(
         ref="player"
+        playsinline
         @canplaythrough="handleCanPlayThrough"
-        :src="src"
         loop
         muted
       )
+       source(:src="src" type="video/mp4")
     #subtitle(v-if="subtitle")
       p {{ subtitle }}
 </template>
