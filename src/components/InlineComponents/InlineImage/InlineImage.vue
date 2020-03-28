@@ -124,12 +124,11 @@ export default class extends Vue {
   }
 
   get colorMatrix() {
-    return `
-      0 0 0 0 ${this.colorMatrixValues.r}
+    return `0 0 0 0 ${this.colorMatrixValues.r}
       0 0 0 0 ${this.colorMatrixValues.g}
       0 0 0 0 ${this.colorMatrixValues.b}
       0 0 0 ${this.colorMatrixValues.a} 0
-    `;
+    `.replace(/\s\s+/g, ' ').trim();
   }
 
   async mounted() {
