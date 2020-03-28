@@ -4,7 +4,7 @@
     @mouseleave="handleHover(false)"
     :class="{ hovering: hovering }"
   )
-    a(:href="to")
+    a(:href="to" target="_blank")
       slot
     #ownLine
     #line(
