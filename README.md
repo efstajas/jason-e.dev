@@ -1,4 +1,6 @@
-# jason4
+# jason-e.dev
+
+This repository is my personal website. It's a PWA written in Vue with TypeScript. It communicates with a Strapi headless CMS server to get content via GraphQL.
 
 ## Project setup
 ```
