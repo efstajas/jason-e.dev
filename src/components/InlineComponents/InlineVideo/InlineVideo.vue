@@ -12,6 +12,7 @@
         @canplaythrough="handleCanPlayThrough"
         loop
         muted
+        :controls="isiOS"
       )
        source(:src="src" type="video/mp4")
     #subtitle(v-if="subtitle")
@@ -35,6 +36,8 @@ export default class extends Vue {
 
   isInView: boolean = false;
 
+  isiOS: boolean = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
   @Prop({
     required: true,
     type: String,
@@ -52,6 +55,8 @@ export default class extends Vue {
       this.isInView = true;
       if (this.loaded) {
         player.play();
+      } else if (this.isiOS) {
+        this.loaded = true;
       }
     } else {
       this.isInView = false;

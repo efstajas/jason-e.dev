@@ -62,13 +62,11 @@ export default class extends Vue {
     await this.$nextTick;
     this.observeInView();
 
-    /*
-    If the client indicates that data should be saved,
-    ask the user if they want to load the video first.
-    */
+    console.log(navigator.userAgent);
+
     this.saveData = (
-      'connection' in window.navigator
-      && (window.navigator as any).connection.saveData
+      ('connection' in window.navigator
+      && (window.navigator as any).connection.saveData)
     );
   }
 
