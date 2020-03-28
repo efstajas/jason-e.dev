@@ -62,8 +62,6 @@ export default class extends Vue {
     await this.$nextTick;
     this.observeInView();
 
-    console.log(navigator.userAgent);
-
     this.saveData = (
       ('connection' in window.navigator
       && (window.navigator as any).connection.saveData)
