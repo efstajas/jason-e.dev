@@ -29,7 +29,7 @@ import { Chapter } from '../../store/modules/subChapters/subChapters.types';
 
 import Meta from '@/decorators/meta';
 
-import makeHexFromRGB from '@/components/Themer/util/makeHexFromRGB';
+import setThemeColor from '@/util/setThemeColor';
 
 const md = new MarkdownIt({
   html: true,
@@ -66,6 +66,8 @@ export default class extends Vue {
     });
 
     this.applyProjectFromStore(slug);
+
+    setThemeColor(this.themeModule.currentTheme.background);
   }
 
   @Meta
@@ -73,16 +75,6 @@ export default class extends Vue {
   metaConfig() {
     return {
       title: this.project ? this.project.name : '',
-      meta: [{
-        name: 'theme-color',
-        content: this.project
-          ? makeHexFromRGB(
-            this.project.tokens.background[0],
-            this.project.tokens.background[1],
-            this.project.tokens.background[2],
-          )
-          : '#FFFFFF',
-      }],
     };
   }
 

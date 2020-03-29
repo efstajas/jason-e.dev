@@ -24,9 +24,12 @@ import projects from '@/graphql/queries/projects';
 import ProjectListing from '@/components/ProjectListing';
 import LoadingIndicator from '@/components/LoadingIndicator';
 
+import themeStore from '@/store/modules/theme/theme';
 import loadingStore from '@/store/modules/loading/loading';
 import projectsStore from '@/store/modules/projects/projects';
 import { sortProjectsByDate } from '@/store/modules/projects/util';
+
+import setThemeColor from '@/util/setThemeColor';
 
 @Component({
   name: 'Home',
@@ -38,11 +41,15 @@ import { sortProjectsByDate } from '@/store/modules/projects/util';
 export default class extends Vue {
   projectsModule = getModule(projectsStore, this.$store);
 
+  themeModule = getModule(themeStore, this.$store);
+
   loadingModule = getModule(loadingStore, this.$store);
 
   projects: null | any = null;
 
   async mounted() {
+    setThemeColor(this.themeModule.currentTheme.background);
+
     await this.projectsModule.getProjectsForContext({
       sort: 'date:desc',
       projects: 'all',
