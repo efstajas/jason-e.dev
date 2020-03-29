@@ -29,6 +29,8 @@ import loadingStore from '@/store/modules/loading/loading';
 import projectsStore from '@/store/modules/projects/projects';
 import { sortProjectsByDate } from '@/store/modules/projects/util';
 
+import Meta from '@/decorators/meta';
+
 import setThemeColor from '@/util/setThemeColor';
 
 @Component({
@@ -58,6 +60,19 @@ export default class extends Vue {
     });
 
     this.applyProjectsFromStore();
+  }
+
+  @Meta
+  // eslint-disable-next-line class-methods-use-this
+  metaConfig() {
+    return {
+      meta: [
+        {
+          name: 'description',
+          content: 'Jason Efstathiou is a Proudct Owner, full-stack developer & UX designer from Berlin.',
+        },
+      ],
+    };
   }
 
   get isLoading() {

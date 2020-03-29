@@ -71,10 +71,12 @@ export default class extends Vue {
   }
 
   @Meta
-  // eslint-disable-next-line class-methods-use-this
   metaConfig() {
     return {
-      title: this.project ? this.project.name : '',
+      title: this.project ? this.project.name : undefined,
+      meta: [
+        { name: 'description', content: this.project ? this.project.subtitle : undefined },
+      ],
     };
   }
 
