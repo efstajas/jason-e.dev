@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#Project(v-if="project && projectContent")
+  main#Project(v-if="project && projectContent")
     ProjectListing(v-bind="project" :tokensDark="project.tokens_dark" :disableHover="true")#intro
     .credit {{ project.credit }}
     #headlines
