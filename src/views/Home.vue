@@ -1,20 +1,21 @@
 <template lang="pug">
   main#Home
-    #intro
-      p I'm a Product Owner, full-stack developer & UX designer.
-      p I'm currently working at Grover in Berlin.
-      br
-      router-link(to="/about") Read some more about me & my work here.
-      p#haveALook Or, have a look at some selected projects:
-    transition(name='fade' mode="out-in")
-      #projects(key="projects" v-if="!isLoading && projects")
-          ProjectListing(
-            v-for="(project, index) in sortedProjects"
-            :key="index"
-            v-bind="project"
-            :tokensDark="project.tokens_dark"
-          )
-      LoadingIndicator#loading(key="loading" v-else)
+    #skipLinkTarget
+      #intro
+        p I'm a Product Owner, full-stack developer & UX designer.
+        p I'm currently working at Grover in Berlin.
+        br
+        router-link(to="/about") Read some more about me & my work here.
+        p#haveALook Or, have a look at some selected projects:
+      transition(name='fade' mode="out-in")
+        #projects(key="projects" v-if="!isLoading && projects")
+            ProjectListing(
+              v-for="(project, index) in sortedProjects"
+              :key="index"
+              v-bind="project"
+              :tokensDark="project.tokens_dark"
+            )
+        LoadingIndicator#loading(key="loading" v-else)
 </template>
 
 <script lang="ts">

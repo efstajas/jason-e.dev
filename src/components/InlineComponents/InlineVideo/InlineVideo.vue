@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#InlineVideo
+  div.InlineVideo
     LazyLoadingElement(
       @inView="handleInView(true)"
       @outsideView="handleInView(false)"
@@ -15,7 +15,7 @@
         :controls="isiOS"
       )
        source(:src="src" type="video/mp4")
-    #subtitle(v-if="subtitle")
+    .subtitle(v-if="subtitle")
       p {{ subtitle }}
 </template>
 

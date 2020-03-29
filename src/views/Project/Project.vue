@@ -1,14 +1,15 @@
 <template lang="pug">
   main#Project(v-if="project && projectContent")
-    ProjectListing(v-bind="project" :tokensDark="project.tokens_dark" :disableHover="true")#intro
-    .credit {{ project.credit }}
-    #headlines
-      .headline(v-for="headline, index in headlines" :key="index")
-        a(:href="`#${headline.id}`") {{ headline.innerHTML }}
-    #text
-      transition(name='fade' mode="out-in")
-        RichText(:template="projectContent" v-if="!isLoading && projectContent")
-        LoadingIndicator(v-else)
+    #skipLinkTarget
+      ProjectListing(v-bind="project" :tokensDark="project.tokens_dark" :disableHover="true")#intro
+      .credit {{ project.credit }}
+      #headlines
+        .headline(v-for="headline, index in headlines" :key="index")
+          a(:href="`#${headline.id}`") {{ headline.innerHTML }}
+      #text
+        transition(name='fade' mode="out-in")
+          RichText(:template="projectContent" v-if="!isLoading && projectContent")
+          LoadingIndicator(v-else)
 </template>
 
 <script lang="ts">

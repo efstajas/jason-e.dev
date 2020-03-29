@@ -1,9 +1,9 @@
 <!-- TODO: Refactor using "LazyLoadingElement" component -->
 
 <template lang="pug">
-  div#InlineImage(ref="root")
-    #image(:style="{ height: desiredHeight, backgroundColor: background }")
-      #loading(
+  div.InlineImage(ref="root")
+    .image(:style="{ height: desiredHeight, backgroundColor: background }")
+      .loading(
         v-if="loading"
         :style="{ height: `${normalizedInitialHeight}px` }"
       )
@@ -27,7 +27,7 @@
         :style="{ filter: `url(#recolorme-${_uid})` }"
         @load="handleLoad"
       )
-    #subtitle(v-if="subtitle")
+    .subtitle(v-if="subtitle")
       p {{ subtitle }}
 </template>
 

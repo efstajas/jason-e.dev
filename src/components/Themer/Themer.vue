@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#Themer(
+  div.Themer(
     :style="currentThemeAsString"
   )
     slot

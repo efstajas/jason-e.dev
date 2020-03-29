@@ -1,20 +1,20 @@
 <template lang="pug">
-  nav#Sidebar(
+  nav.Sidebar(
     ref="container"
   )
-    #titleSection(
+    .titleSection(
       @click="handleTitleClick"
       :class="{ extended: goHomeEnabled }"
     )
-      #content(:style="{ width: width }")
+      .content(:style="{ width: width }")
         .goBack(
           :class="{ shown: goHomeEnabled }"
           ) <-
         .title(:class="{ nudged: goHomeEnabled }") Jason Efstathiou
-    scrollactive#chapters(
+    scrollactive.chapters(
       @itemchanged="activatedChapter = true"
     )
-      #inner(
+      .inner(
         name="fade"
         :style="{ width: width }"
       )
@@ -23,7 +23,7 @@
           :class="{ 'is-active': !activatedChapter }"
           v-for="chapter, index in currentChapters"
           :key="chapter.hash"
-          :href="`#${chapter.hash}`"
+          :href="`.${chapter.hash}`"
         ) {{ chapter.text }}
 </template>
 

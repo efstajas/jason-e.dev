@@ -1,17 +1,17 @@
 <template lang="pug">
-  #InlineLink(
+  .InlineLink(
     @mouseover="handleHover(true)"
     @mouseleave="handleHover(false)"
     :class="{ hovering: hovering }"
   )
     a(:href="to" target="_blank")
       slot
-    #ownLine
-    #line(
+    .ownLine
+    .line(
       :style="`width: calc(100% + ${lineLength}px)`"
     )
-    a#to(:href="to" :style="`left: ${linkOffset}px`" ref="link") {{ url.host }}
-    a#fullLink(:href="to" :style="`left: ${fullUrlOffset}px`") {{ url.pathname }}
+    a.to(:href="to" :style="`left: ${linkOffset}px`" ref="link") {{ url.host }}
+    a.fullLink(:href="to" :style="`left: ${fullUrlOffset}px`") {{ url.pathname }}
 </template>
 
 <script lang="ts">

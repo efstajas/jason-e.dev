@@ -1,34 +1,34 @@
 <template lang="pug">
   intersect(@enter="startAnimation" :threshold="[0.8]")
-    #ProjectListing(
+    .ProjectListing(
       @click="goToProject()"
       @mouseover="hover = true"
       @mouseleave="hover = false"
     )
-      #main(:class="{ hoverEnabled: !disableHover }")
-        div#line(
+      .main(:class="{ hoverEnabled: !disableHover }")
+        div.line(
           :class="{ shown: isHovering }"
         )
-        p#name
+        p.name
           span {{name}}
-        p#date
+        p.date
           span {{parseDate(date)}}
-        p#role
+        p.role
           span {{role}}
-        p#subtitle {{subtitle}}
-        Themer#image(
+        p.subtitle {{subtitle}}
+        Themer.image(
           :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
           :theme="desiredTokens"
         )
-          #tokens
+          .tokens
             .token(
               v-for="(t, index) in desiredTokens"
               :key="index"
               :style="{ backgroundColor: `rgba(${t[0]},${t[1]},${t[2]},${t[3]})`}"
             )
-          #illustration
+          .illustration
             svg(
-              id="animate"
+              :id="`animate_${_uid}`"
               :class="{ animateIn: shouldAnimate }"
               :viewBox="illustrationViewbox || defaultViewbox"
               v-html="illustration"
@@ -133,7 +133,8 @@ export default class extends Vue {
   async mounted() {
     await this.$nextTick;
 
-    const paths = document.querySelectorAll('#animate path');
+    // eslint-disable-next-line no-underscore-dangle
+    const paths = document.querySelectorAll(`#animate_${(this as any)._uid} path`);
 
     paths.forEach((path) => {
       const length = (path as SVGGeometryElement).getTotalLength();
@@ -166,4 +167,4 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="sass" src="./ProjectListing.sass" />
+<style scoped lang="sass" src="./ProjectListing.sass" />

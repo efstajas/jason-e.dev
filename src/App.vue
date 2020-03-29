@@ -1,23 +1,23 @@
 <template lang="pug">
-  div#app
+  div.app
     StoreThemer
-      #mainContainer(
+      .mainContainer(
         :class="{ homepage: isHomepage }"
       )
         Sidebar(
           :goHomeEnabled="!isHomepage"
-        )#sidebar
+        ).sidebar
         transition(
           name='fade'
           mode="out-in"
           @after-leave="$root.$emit('triggerScroll')"
         )
-          router-view(:key="$route.params.slug")#content
+          router-view(:key="$route.params.slug").content
       Themer(
         :theme="themeModule.defaultTheme"
         v-if="!$route.meta.hideFooter"
-      )#footerContainer
-        #footerContent
+      ).footerContainer
+        .footerContent
           transition(
             name='fade'
             mode="out-in"
@@ -65,9 +65,9 @@ export default class extends Vue {
 body
   margin: 0
   overflow-x: hidden
-  #app
+  .app
     background-color: black
-    #mainContainer, #footerContainer
+    .mainContainer, .footerContainer
       display: grid
       grid-template-columns: min-content auto
       grid-template-rows: auto
@@ -76,7 +76,7 @@ body
       @media(max-width: $laptop)
         grid-template-columns: auto
         grid-template-rows: minmax(min-content, max-content) auto
-    #mainContainer
+    .mainContainer
       grid-template-areas: "sidebar content"
       min-height: 100vh
       padding: 24px 16px 128px 16px
@@ -85,25 +85,25 @@ body
       transition: all .3s
       &.loading
         animation: loading .6s 1s infinite
-      #content
+      .content
         max-width: 1100px
       @media(max-width: $laptop)
         grid-template-areas: "menu" "content"
-        #sidebar
+        .sidebar
           grid-area: menu
           margin-bottom: 32px
-        #content
+        .content
           grid-area: content
-        #footer
+        .footer
           grid-area: footer
       @media(min-width: $laptop)
-        #sidebar
+        .sidebar
           grid-area: sidebar
           border-right: 2px solid var(--foreground)
           transition: border .3s
-        #content
+        .content
           grid-area: content
-    #footerContainer
+    .footerContainer
       grid-template-columns: 256px auto
       grid-template-areas: ". footerContent"
       background-color: var(--background)
@@ -111,7 +111,7 @@ body
       padding: 128px 16px
       @media(max-width: $laptop)
         grid-template-areas: "footerContent footerContent"
-      #footerContent
+      .footerContent
         max-width: 1100px
         grid-area: footerContent
 .fade-enter-active, .fade-leave-active

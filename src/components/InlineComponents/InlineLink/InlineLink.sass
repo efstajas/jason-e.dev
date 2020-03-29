@@ -1,6 +1,6 @@
 @import '@/styles/global/breakpoints.sass'
   
-#InlineLink
+.InlineLink
   display: inline-block
   position: relative
   height: 24px
@@ -8,20 +8,20 @@
   a
     height: 24px
     text-decoration: none
-  #ownLine
+  .ownLine
     width: 100%
     height: 2px
     position: absolute
     background-color: var(--foreground)
     top: 24px
-  #line
+  .line
     position: absolute
     height: 2px
     background-color: var(--foreground)
     opacity: .3
     top: 24px
     transition: inherit
-  #to, #fullLink
+  .to, .fullLink
     height: 24px
     white-space: nowrap
     overflow: hidden
@@ -29,17 +29,17 @@
     position: absolute
     opacity: .3
     transition: inherit
-  #fullLink
+  .fullLink
     opacity: 0
     width: 100vw
     transition: inherit
   &.hovering
-    #line
+    .line
       opacity: 1
-    #to
+    .to
       opacity: 1
-    #fullLink
+    .fullLink
       opacity: .5
   @media(max-width: $laptop)
-    #fullLink, #line, #fullLink, #to
+    .fullLink, .line, .fullLink, .to
       display: none

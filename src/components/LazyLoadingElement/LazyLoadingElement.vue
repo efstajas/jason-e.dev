@@ -1,15 +1,15 @@
 <template lang="pug">
-  div#LazyLoadingElement(ref="root" :style="{ height: desiredHeight }")
-    #loading(
+  div.LazyLoadingElement(ref="root" :style="{ height: desiredHeight }")
+    .loading(
       v-if="!saveData && !loaded"
       :style="{ height: `${normalizedInitialHeight}px` }"
     )
-    #loadPrompt(v-if="saveData" @click="handleLoadClick")
+    .loadPrompt(v-if="saveData" @click="handleLoadClick")
       span Click to load video
-    #progressBar(v-if="!loaded && !saveData" ref="progressBar")
-      #progress(v-if="progress" :style="{ width: progressBarWidth }")
+    .progressBar(v-if="!loaded && !saveData" ref="progressBar")
+      .progress(v-if="progress" :style="{ width: progressBarWidth }")
       LoadingIndicator(v-else)
-    #content(ref="content" :style="{ opacity: contentOpacity }")
+    .content(ref="content" :style="{ opacity: contentOpacity }")
       slot(v-if="saveData === false")
 </template>
 
