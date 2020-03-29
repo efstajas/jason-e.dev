@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#Home
+  main#Home
     #intro
       p I'm a Product Owner, full-stack developer & UX designer.
       p I'm currently working at Grover in Berlin.
