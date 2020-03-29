@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#Sidebar(
+  nav#Sidebar(
     ref="container"
   )
     #titleSection(
