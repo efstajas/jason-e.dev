@@ -23,7 +23,7 @@
           :class="{ 'is-active': !activatedChapter }"
           v-for="chapter, index in currentChapters"
           :key="chapter.hash"
-          :href="`.${chapter.hash}`"
+          :href="`#${chapter.hash}`"
         ) {{ chapter.text }}
 </template>
 
