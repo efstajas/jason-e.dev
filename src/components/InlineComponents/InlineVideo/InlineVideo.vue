@@ -4,7 +4,6 @@
       @inView="handleInView(true)"
       @outsideView="handleInView(false)"
       :loaded="loaded"
-      :progress="progress"
     )
       video(
         ref="player"
@@ -32,8 +31,6 @@ import LazyLoadingElement from '@/components/LazyLoadingElement';
 export default class extends Vue {
   loaded: boolean = false;
 
-  progress: number = 0;
-
   isInView: boolean = false;
 
   isiOS: boolean = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -56,6 +53,10 @@ export default class extends Vue {
       if (this.loaded) {
         player.play();
       } else if (this.isiOS) {
+        /*
+        Remove the lazy loading overlay on iOS when in view so that the user can
+        tap the video and actually cause it to be loaded.
+        */
         this.loaded = true;
       }
     } else {
