@@ -132,9 +132,11 @@ export default class extends Vue {
   }
 
   async mounted() {
-    window.addEventListener('resize', this.updateHeight);
+    window.addEventListener('resize', () => {
+      this.updateHeight();
+      this.updateWidth();
+    });
 
-    window.addEventListener('resize', this.updateWidth);
     this.updateWidth();
 
     await this.$nextTick;
@@ -142,8 +144,11 @@ export default class extends Vue {
   }
 
   destroyed() {
-    window.removeEventListener('resize', this.updateHeight);
-    window.removeEventListener('resize', this.updateHeight);
+    window.removeEventListener('resize', () => {
+      this.updateHeight();
+      this.updateWidth();
+    });
+
     if (this.intersectionObserver) this.intersectionObserver.disconnect();
   }
 
