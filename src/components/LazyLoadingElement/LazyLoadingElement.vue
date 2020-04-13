@@ -54,18 +54,26 @@ export default class extends Vue {
   }) readonly progress?: number;
 
   async mounted() {
-    window.addEventListener('resize', this.updateHeight);
-
-    window.addEventListener('resize', this.updateWidth);
+    window.addEventListener('resize', () => {
+      this.updateHeight();
+      this.updateWidth();
+    });
     this.updateWidth();
 
     await this.$nextTick;
-    this.observeInView();
 
+    this.observeInView();
     this.saveData = (
       ('connection' in window.navigator
       && (window.navigator as any).connection.saveData)
     );
+  }
+
+  destroyed() {
+    window.removeEventListener('resize', () => {
+      this.updateHeight();
+      this.updateWidth();
+    });
   }
 
   get desiredHeight(): string {
