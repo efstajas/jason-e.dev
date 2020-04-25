@@ -17,22 +17,26 @@
           span {{role}}
         p.subtitle {{subtitle}}
         Themer.image(
-          :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
           :theme="desiredTokens"
         )
-          .tokens
-            .token(
-              v-for="(t, index) in desiredTokens"
-              :key="index"
-              :style="{ backgroundColor: `rgba(${t[0]},${t[1]},${t[2]},${t[3]})`}"
-            )
-          .illustration
-            svg(
-              :id="`animate_${_uid}`"
-              :class="{ animateIn: shouldAnimate }"
-              :viewBox="illustrationViewbox || defaultViewbox"
-              v-html="illustration"
-            )
+          .behindImage
+          .imageInner(
+            :class="{ 'non-interactive': nonInteractive }"
+            :style="{ backgroundColor: `rgba(${imgBg[0]},${imgBg[1]},${imgBg[2]},${imgBg[3]})`}"
+          )
+            .tokens
+              .token(
+                v-for="(t, index) in desiredTokens"
+                :key="index"
+                :style="{ backgroundColor: `rgba(${t[0]},${t[1]},${t[2]},${t[3]})`}"
+              )
+            .illustration
+              svg(
+                :id="`animate_${_uid}`"
+                :class="{ animateIn: shouldAnimate }"
+                :viewBox="illustrationViewbox || defaultViewbox"
+                v-html="illustration"
+              )
 </template>
 
 <script lang="ts">
@@ -124,6 +128,10 @@ export default class extends Vue {
     return this.themeModule.isDarkMode
       ? this.tokensDark
       : this.tokens;
+  }
+
+  get nonInteractive(): boolean {
+    return this.disableHover;
   }
 
   get imgBg(): Token {

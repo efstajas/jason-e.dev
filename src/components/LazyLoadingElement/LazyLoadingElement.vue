@@ -131,7 +131,7 @@ export default class extends Vue {
   }
 
   updateHeight() {
-    this.height = `${(this.$refs.content as HTMLElement).offsetHeight - 2}px`;
+    this.height = `${(this.$refs.content as HTMLElement).offsetHeight - 8}px`;
   }
 
   handleLoadClick() {

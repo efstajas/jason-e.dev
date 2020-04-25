@@ -99,12 +99,12 @@ body
       @media(min-width: $laptop)
         .sidebar
           grid-area: sidebar
-          border-right: 2px solid var(--foreground)
+          border-right: 2px solid var(--level1)
           transition: border .3s
         .content
           grid-area: content
     .footerContainer
-      grid-template-columns: 256px auto
+      grid-template-columns: 320px auto
       grid-template-areas: ". footerContent"
       background-color: var(--background)
       min-height: 256px

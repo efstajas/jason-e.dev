@@ -90,6 +90,8 @@ export default class extends VuexModule {
     context: 'Listing',
     projects: 'all',
   }): Promise<void> {
+    if (this.getLastFetchedAllProjects && options.projects === 'all') return;
+
     this.context.dispatch('setLoading', true, { root: true });
 
     let fields = [];
