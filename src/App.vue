@@ -104,11 +104,12 @@ body
         .content
           grid-area: content
     .footerContainer
-      grid-template-columns: 320px auto
+      grid-template-columns: minmax(auto, 320px) auto
       grid-template-areas: ". footerContent"
       background-color: var(--background)
       min-height: 256px
       padding: 128px 16px
+      box-sizing: border-box
       @media(max-width: $laptop)
         grid-template-areas: "footerContent footerContent"
       .footerContent

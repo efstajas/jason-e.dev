@@ -17,7 +17,8 @@
   transition: all .3s
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0)
   &.extended
-    width: 320px
+    @media(min-width: $laptop)
+      width: 320px
   .content
     position: fixed
     flex-direction: column
