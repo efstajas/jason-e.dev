@@ -53,6 +53,8 @@
         transform: translateX(calc(64px + 2px))
         @media(max-width: $laptop)
           transform: translateX(0)
+        @media(min-width: $laptop)
+          background-color: var(--background)
         transition: all .3s
         &.nudged
           transform: translateX(24px)
