@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#LoadingIndicator(ref="container")
+  div#LoadingIndicator(ref="container" :class="{ appear }")
     #line(
       v-if="width"
       :style="{ '--parentWidth': `${width}px`, width: `${secondLineWidth}px` }"
@@ -17,8 +17,11 @@ export default class extends Vue {
 
   private secondLineWidth: number | null = null;
 
-  private async mounted() {
+  private appear: boolean = false;
+
+  private mounted() {
     this.calcWidths();
+    setTimeout(() => { this.appear = true; }, 500);
   }
 
   private calcWidths() {
