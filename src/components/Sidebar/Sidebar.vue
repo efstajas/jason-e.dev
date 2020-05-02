@@ -6,11 +6,13 @@
       @click="handleTitleClick"
       :class="{ extended: goHomeEnabled }"
     )
-      .content(:style="{ width: width }")
-        .goBack(
-          :class="{ shown: goHomeEnabled }"
-          ) <-
-        .title(:class="{ nudged: goHomeEnabled }") Jason Efstathiou
+      .content()
+        .inner
+          .goBack(
+            :class="{ shown: goHomeEnabled }"
+            ) <-
+          .title(:class="{ nudged: goHomeEnabled }") Jason Efstathiou
+        .line
     scrollactive.chapters(
       @itemchanged="activatedChapter = true"
     )
