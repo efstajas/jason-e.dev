@@ -28,6 +28,7 @@
       top: 0
       justify-content: center
       background-color: var(--background)
+      transition: background-color .3s
       .line
         background-color: var(--level1)
         height: 2px
@@ -53,7 +54,6 @@
         @media(max-width: $laptop)
           transform: translateX(0)
         transition: all .3s
-        background-color: var(--background)
         &.nudged
           transform: translateX(24px)
 .chapters > .inner
