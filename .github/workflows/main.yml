@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
+    - name: Install dependancies
+      run: yarn install
+    - name: Build
       run: yarn run build
     - name: Publish app to Google App Engine
       uses: zxyle/publish-gae-action@v2.3
