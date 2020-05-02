@@ -5,6 +5,7 @@ import Project from '@/views/Project';
 import About from '@/views/About';
 import ErrorPage from '@/views/Error';
 import ProjectFooter from '@/views/ProjectFooter';
+import projects from '@/views/Projects';
 
 Vue.use(VueRouter);
 
@@ -15,7 +16,19 @@ const routes = [
     component: Home,
     meta: {
       hideFooter: true,
+      disableSidebar: true,
     },
+    children: [
+      {
+        name: 'projects',
+        path: '/projects',
+        component: projects,
+        meta: {
+          hideFooter: true,
+          disableSidebar: true,
+        },
+      },
+    ],
   },
   {
     path: '/project/:slug',

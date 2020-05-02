@@ -53,7 +53,7 @@ export default class extends Vue {
   loadingModule = getModule(loadingStore, this.$store);
 
   get isHomepage(): boolean {
-    return this.$route.name === 'home';
+    return this.$route.meta.disableSidebar;
   }
 }
 </script>
