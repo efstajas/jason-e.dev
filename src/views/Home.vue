@@ -2,7 +2,7 @@
   main#Home
     #skipLinkTarget
       #intro
-        p I'm a Product Owner, full-stack developer & UX designer.
+        p I'm a Product Manager, full-stack developer & UX designer.
         p I'm currently working at Grover in Berlin.
         br
         router-link(to="/about") Read some more about me & my work here.
