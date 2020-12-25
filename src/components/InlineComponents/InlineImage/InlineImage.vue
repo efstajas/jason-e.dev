@@ -24,7 +24,7 @@
         ref="img"
         :class="{ hidden: loading, withPadding: padding }"
         :src="src"
-        :style="{ filter: `url(#recolorme-${_uid})` }"
+        :style="{ filter: refillwithforeground ? `url(#recolorme-${_uid})` : null }"
         @load="handleLoad"
       )
     .subtitle(v-if="subtitle")
