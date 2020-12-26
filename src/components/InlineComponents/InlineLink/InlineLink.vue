@@ -11,7 +11,7 @@
       :style="`width: calc(100% + ${lineLength}px)`"
     )
     a.to(:href="to" :style="`left: ${linkOffset}px`" ref="link") {{ url.host }}
-    a.fullLink(:href="to" :style="`left: ${fullUrlOffset}px`") {{ url.pathname }}
+    a.fullLink(:href="to" target="_blank" :style="`left: ${fullUrlOffset}px`") {{ url.pathname }}
 </template>
 
 <script lang="ts">
