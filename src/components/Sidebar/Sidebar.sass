@@ -59,18 +59,59 @@
         transition: all .3s
         &.nudged
           transform: translateX(24px)
-.chapters > .inner
-  margin-top: 32px
+.chapters
+  position: relative
   position: fixed
-  display: flex
-  flex-direction: column
-  a
-    margin-bottom: 16px
-    padding-right: 64px
-    text-decoration: none
-    opacity: .6
-    transition: opacity .3s
-    &.is-active, &:hover
-      opacity: 1
-  @media(max-width: $laptop)
-    display: none
+  .progressBall
+    @media(max-width: $laptop)
+      display: none
+    top: 0
+    left: -4px
+    height: 10px
+    width: 10px
+    border-radius: 5px
+    position: absolute
+    transition: transform .2s, opacity .2s
+    background-color: var(--foreground)
+    z-index: 1000
+  .inner
+    display: flex
+    flex-direction: column
+    a
+      padding-right: 64px
+      text-decoration: none
+      display: flex
+      position: relative
+      display: inline-block
+      &.scrolledDown
+        .progressBar
+          opacity: 1
+          transform: translateX(0)
+        span
+          transform: translateX(24px)
+      &.is-active, &:hover
+        span
+          opacity: 1
+      &:first-child
+        .progressBar
+          top: 50%
+      &:last-child
+        .progressBar
+          bottom: 50%
+      .progressBar
+        position: absolute
+        top: 0
+        bottom: 0
+        width: 2px
+        background-color: var(--level2)
+        opacity: 0
+        transform: translateX(-24px)
+        transition: all .3s
+      span
+        transition: all .3s
+        display: inline-block
+        margin-right: 24px
+        padding: 8px 0
+        opacity: .6
+    @media(max-width: $laptop)
+      display: none
