@@ -55,11 +55,6 @@ export default class extends Vue {
     type: String,
   }) readonly subtitle?: string;
 
-  mounted() {
-    console.log(this.isiOS);
-    console.log(navigator.userAgent);
-  }
-
   handleInView(isInView: boolean) {
     const player = this.$refs.player as HTMLMediaElement;
 
