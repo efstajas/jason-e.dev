@@ -22,6 +22,16 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import LazyLoadingElement from '@/components/LazyLoadingElement';
 
+function isIOS() {
+  if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+    return true;
+  }
+  return Boolean(navigator.maxTouchPoints
+    && navigator.maxTouchPoints > 2
+    && /MacIntel/.test(navigator.platform));
+}
+
+
 @Component({
   name: 'InlineVideo',
   components: {
@@ -33,7 +43,7 @@ export default class extends Vue {
 
   isInView: boolean = false;
 
-  isiOS: boolean = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  isiOS: boolean = isIOS();
 
   @Prop({
     required: true,
@@ -44,6 +54,11 @@ export default class extends Vue {
     required: false,
     type: String,
   }) readonly subtitle?: string;
+
+  mounted() {
+    console.log(this.isiOS);
+    console.log(navigator.userAgent);
+  }
 
   handleInView(isInView: boolean) {
     const player = this.$refs.player as HTMLMediaElement;
