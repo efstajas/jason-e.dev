@@ -13,7 +13,7 @@
         muted
         :controls="isiOS"
       )
-       source(:src="src" type="video/mp4")
+       source(:src="`https://res.cloudinary.com/jason-e/video/upload/q_auto:good,w_2000,f_auto/${cloudinaryid}.mp4`" type="video/mp4")
     .subtitle(v-if="subtitle")
       p {{ subtitle }}
 </template>
@@ -38,7 +38,7 @@ export default class extends Vue {
   @Prop({
     required: true,
     type: String,
-  }) readonly src!: string;
+  }) readonly cloudinaryid!: string;
 
   @Prop({
     required: false,

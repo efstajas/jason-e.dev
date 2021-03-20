@@ -23,7 +23,7 @@
         v-if="inView || (loading === false)"
         ref="img"
         :class="{ hidden: loading, withPadding: padding }"
-        :src="src"
+        :src="`https://res.cloudinary.com/jason-e/image/upload/f_auto,q_auto,w_2000/${cloudinaryid}`"
         :style="{ filter: refillwithforeground ? `url(#recolorme-${_uid})` : null }"
         @load="handleLoad"
       )
@@ -64,7 +64,7 @@ export default class extends Vue {
   @Prop({
     type: String,
     required: true,
-  }) readonly src!: string;
+  }) readonly cloudinaryid!: string;
 
   @Prop({
     type: String,
