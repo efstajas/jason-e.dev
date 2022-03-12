@@ -1,5 +1,6 @@
 <template lang="pug">
   div.app
+    p bruh
     StoreThemer
       .mainContainer(
         :class="{ homepage: isHomepage }"
