@@ -3,7 +3,7 @@
     #skipLinkTarget
       #intro
         p I'm a Product Manager, full-stack developer & UX designer.
-        p I'm currently working at Grover in Berlin.
+        p I'm currently working on decentralizing code collaboration at Radicle.
         br
         router-link(to="/about") Read some more about me & my work here.
         p#haveALook Or, have a look at some selected projects:
