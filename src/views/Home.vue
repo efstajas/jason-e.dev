@@ -3,10 +3,13 @@
     #skipLinkTarget
       #intro
         p I'm a Product Manager, full-stack developer & UX designer.
-        p I'm currently working on decentralizing code collaboration at Radicle.
+        p I'm currently working on building the future of crowdfunding for FOSS at
+          a(href="https://drips.network" target="_blank" rel="noopener noreferrer") drips.network
+          |  in Berlin.
         br
-        router-link(to="/about") Read some more about me & my work here.
-        p#haveALook Or, have a look at some selected projects:
+        p This page used to host my portfolio. Unfortunately, Heroku deleted my blog database
+          |  without warning (yes, really). I'm in the process of restoring everything and moving
+          |  to a different host.
       transition(name='fade' mode="out-in")
         router-view
 </template>
