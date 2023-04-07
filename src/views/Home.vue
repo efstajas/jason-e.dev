@@ -3,7 +3,7 @@
     #skipLinkTarget
       #intro
         p I'm a Product Manager, full-stack developer & UX designer.
-        p I'm currently working on building the future of crowdfunding for FOSS at
+        p I'm currently working on building the future of crowdfunding for FOSS at #{' '}
           a(href="https://drips.network" target="_blank" rel="noopener noreferrer") drips.network
           |  in Berlin.
         br
